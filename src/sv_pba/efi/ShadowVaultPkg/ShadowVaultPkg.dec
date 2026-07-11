@@ -1,0 +1,17 @@
+## @file
+# ShadowVault UEFI package (Phase 1 PBA prototype).
+##
+# Copyright (c) 2026 ShadowVault contributors. SPDX-License-Identifier: MIT
+##
+
+[Defines]
+  DEC_SPECIFICATION              = 0x00010005
+  PACKAGE_NAME                   = ShadowVaultPkg
+  PACKAGE_GUID                   = 7F4E2A91-3C5B-4D8E-A1F0-9B2C3D4E5F60
+  PACKAGE_VERSION                = 1.0
+
+[Includes]
+  Include
+
+[Guids]
+  gSvPbaVmkHandoffGuid = { 0x9E4F8A21, 0x6C3B, 0x4D2E, { 0xA1, 0xF8, 0x55, 0x66, 0x77, 0x88, 0x99, 0xAB } }

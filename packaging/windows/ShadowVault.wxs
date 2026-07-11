@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Shadow Vault Windows MSI (WiX 3.x).
+  Build via scripts/build-installer.ps1 (stages files + heat/candle/light).
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <Product Id="*"
+           Name="Shadow Vault"
+           Language="1033"
+           Version="$(var.ProductVersion)"
+           Manufacturer="ShadowVault"
+           UpgradeCode="A1B2C3D4-E5F6-7890-ABCD-EF1234567890">
+    <Package InstallerVersion="500"
+             Compressed="yes"
+             InstallScope="perMachine"
+             Description="Shadow Vault encrypted storage"
+             Comments="GPLv3 — https://github.com/shadowvault/shadowvault" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of Shadow Vault is already installed."
+                  AllowSameVersionUpgrades="yes" />
+    <MediaTemplate EmbedCab="yes" />
+
+    <Condition Message="Shadow Vault requires Windows 10 or later.">
+      <![CDATA[Installed OR (VersionNT >= 10)]]>
+    </Condition>
+
+    <Icon Id="ShadowVaultIcon" SourceFile="$(var.StagingDir)\shadowvault.ico" />
+    <Property Id="ARPPRODUCTICON" Value="ShadowVaultIcon" />
+    <Property Id="ARPNOREPAIR" Value="yes" />
+
+    <Feature Id="FeatureCore" Title="Shadow Vault CLI" Level="1" Absent="disallow"
+             Description="svcli command-line tool and documentation">
+      <ComponentGroupRef Id="HarvestedComponents" />
+      <ComponentRef Id="CmpPath" />
+      <ComponentRef Id="CmpStartMenu" />
+    </Feature>
+
+    <Feature Id="FeaturePba" Title="Pre-Boot Authentication (lab)" Level="1000"
+             Description="ShadowVaultBoot.efi and lab ESP layout tools (optional)">
+      <ComponentRef Id="CmpPbaBoot" />
+      <ComponentRef Id="CmpPbaScripts" />
+    </Feature>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFiles64Folder">
+        <Directory Id="INSTALLFOLDER" Name="ShadowVault" />
+      </Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="Shadow Vault" />
+      </Directory>
+    </Directory>
+
+    <DirectoryRef Id="INSTALLFOLDER">
+      <Directory Id="INSTALLFOLDERpba" Name="pba" />
+      <Directory Id="INSTALLFOLDERscripts" Name="scripts" />
+      <Component Id="CmpPath" Guid="B1C2D3E4-F5A6-4B7C-8D9E-0F1A2B3C4D5E" KeyPath="yes" Win64="yes">
+        <Environment Id="EnvPath"
+                     Name="PATH"
+                     Action="set"
+                     Part="last"
+                     System="yes"
+                     Permanent="no"
+                     Value="[INSTALLFOLDER]bin" />
+        <CreateFolder />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="INSTALLFOLDERpba">
+      <Component Id="CmpPbaBoot" Guid="C2D3E4F5-A6B7-4C8D-9E0F-1A2B3C4D5E6F" Win64="yes">
+        <File Id="FilShadowVaultBoot" Source="$(var.StagingDir)\pba\ShadowVaultBoot.efi" KeyPath="yes" />
+        <File Id="FilLabBootManager" Source="$(var.StagingDir)\pba\LabBootManager.efi" />
+        <File Id="FilLabRescue" Source="$(var.StagingDir)\pba\LabRescue.efi" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="INSTALLFOLDERscripts">
+      <Component Id="CmpPbaScripts" Guid="D3E4F5A6-B7C8-4D9E-0F1A-2B3C4D5E6F70" Win64="yes">
+        <File Id="FilPbaPhysicalLab" Source="$(var.StagingDir)\scripts\pba-physical-lab.ps1" KeyPath="yes" />
+        <File Id="FilPbaPrepareEsp" Source="$(var.StagingDir)\scripts\pba-prepare-esp-dir.ps1" />
+        <File Id="FilPbaQemuSmoke" Source="$(var.StagingDir)\scripts\pba-qemu-smoke.ps1" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="CmpStartMenu" Guid="E4F5A6B7-C8D9-4E0F-1A2B-3C4D5E6F7081" Win64="yes">
+        <Shortcut Id="ScStartMenuReadme"
+                  Name="Shadow Vault README"
+                  Target="[INSTALLFOLDER]doc\README.md"
+                  WorkingDirectory="INSTALLFOLDER" />
+        <RemoveFolder Id="RemoveAppMenu" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\ShadowVault" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <UIRef Id="WixUI_Minimal" />
+    <WixVariable Id="WixUILicenseRtf" Value="$(var.StagingDir)\license.rtf" />
+  </Product>
+</Wix>

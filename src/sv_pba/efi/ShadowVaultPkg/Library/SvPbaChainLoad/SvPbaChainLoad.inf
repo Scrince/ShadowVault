@@ -1,0 +1,33 @@
+## @file
+# Chain-load helpers for ShadowVaultBoot.efi (Sprint C).
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SvPbaChainLoad
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 0.1.0
+  LIBRARY_CLASS                  = SvPbaChainLoad|UEFI_APPLICATION
+
+[Sources]
+  SvPbaChainLoad.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  ShadowVaultPkg/ShadowVaultPkg.dec
+
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  DevicePathLib
+  MemoryAllocationLib
+  PrintLib
+  UefiBootServicesTableLib
+  UefiLib
+
+[Protocols]
+  gEfiLoadedImageProtocolGuid
+  gEfiSimpleFileSystemProtocolGuid
+
+[Guids]
+  gEfiFileInfoGuid

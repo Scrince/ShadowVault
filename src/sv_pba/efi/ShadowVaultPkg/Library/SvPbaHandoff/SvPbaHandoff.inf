@@ -1,0 +1,25 @@
+## @file
+# VMK boot-services variable handoff (Phase 1 OQ-S01 spike).
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SvPbaHandoff
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 0.1.0
+  LIBRARY_CLASS                  = SvPbaHandoff|UEFI_APPLICATION
+
+[Sources]
+  SvPbaHandoff.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  ShadowVaultPkg/ShadowVaultPkg.dec
+
+[LibraryClasses]
+  BaseMemoryLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+
+[Guids]
+  gSvPbaVmkHandoffGuid

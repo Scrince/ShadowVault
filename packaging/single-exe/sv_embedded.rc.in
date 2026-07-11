@@ -1,0 +1,3 @@
+// Auto-generated — embeds runtime payloads into the single portable executable.
+101 RCDATA "@SV_EMBED_WINFSP_DLL@"
+102 RCDATA "@SV_EMBED_PORTABLE_INI@"

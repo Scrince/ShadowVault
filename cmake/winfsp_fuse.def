@@ -1,0 +1,11 @@
+LIBRARY winfsp-x64
+EXPORTS
+fsp_fuse_opt_add_arg
+fsp_fuse_opt_free_args
+fsp_fuse3_new_30
+fsp_fuse3_destroy
+fsp_fuse3_mount
+fsp_fuse3_unmount
+fsp_fuse3_loop
+fsp_fuse3_exit
+fsp_fuse3_get_context

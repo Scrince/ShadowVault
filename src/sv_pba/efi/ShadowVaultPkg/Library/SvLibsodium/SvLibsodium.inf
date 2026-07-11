@@ -1,0 +1,63 @@
+## @file
+# Vendored minimal libsodium for ShadowVault PBA unlock (UEFI / EDK2).
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SvLibsodium
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0.20
+  LIBRARY_CLASS                  = SvLibsodium|UEFI_APPLICATION
+
+[Sources]
+  sodium_platform_uefi.c
+  sodium_crt_uefi.c
+  sodium_core_patch.c
+  sodium_utils_minimal.c
+  randombytes_uefi_api.c
+  ../../../../../../external/libsodium_cmake/stubs.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_aead/xchacha20poly1305/aead_xchacha20poly1305.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_core/hchacha20/core_hchacha20.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_generichash/blake2b/ref/blake2b-ref.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_generichash/blake2b/ref/generichash_blake2b.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_generichash/blake2b/ref/blake2b-compress-ref.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_generichash/blake2b/ref/blake2b-compress-ssse3.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_generichash/blake2b/ref/blake2b-compress-sse41.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_generichash/blake2b/ref/blake2b-compress-avx2.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_generichash/blake2b/generichash_blake2.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_auth/hmacsha256/auth_hmacsha256.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_hash/sha256/hash_sha256.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_hash/sha256/cp/hash_sha256_cp.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_pwhash/argon2/argon2-core.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_pwhash/argon2/argon2-encoding.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_pwhash/argon2/argon2-fill-block-ref.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_pwhash/argon2/argon2-fill-block-ssse3.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_pwhash/argon2/argon2-fill-block-avx2.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_pwhash/argon2/argon2-fill-block-avx512f.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_pwhash/argon2/argon2.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_pwhash/argon2/blake2b-long.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_pwhash/argon2/pwhash_argon2id.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_onetimeauth/poly1305/onetimeauth_poly1305.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_onetimeauth/poly1305/donna/poly1305_donna.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_stream/chacha20/stream_chacha20.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_stream/chacha20/ref/chacha20_ref.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_stream/chacha20/dolbeau/chacha20_dolbeau-ssse3.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_stream/chacha20/dolbeau/chacha20_dolbeau-avx2.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_onetimeauth/poly1305/sse2/poly1305_sse2.c
+  ../../../../../../external/libsodium-src/src/libsodium/crypto_verify/verify.c
+  ../../../../../../external/libsodium-src/src/libsodium/sodium/codecs.c
+  ../../../../../../external/libsodium-src/src/libsodium/sodium/core.c
+  ../../../../../../external/libsodium-src/src/libsodium/sodium/runtime.c
+  ../../../../../../external/libsodium-src/src/libsodium/sodium/version.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  ShadowVaultPkg/ShadowVaultPkg.dec
+
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+
+[BuildOptions]
+  MSFT:*_*_X64_CC_FLAGS    = /U_WIN32 /GL- /DCONFIGURED=1 /DSODIUM_STATIC=1 /DSODIUM_LIBRARY_MINIMAL=1 /DMINIMAL=1 /DNDEBUG /wd4319 /I$(WORKSPACE)/ShadowVaultPkg/Library/SvLibsodium/Include /I$(LIBSODIUM_INCLUDE) /I$(LIBSODIUM_INCLUDE)/sodium /W3
+  GCC:*_*_X64_CC_FLAGS     = -U_WIN32 -DCONFIGURED=1 -DSODIUM_STATIC=1 -DSODIUM_LIBRARY_MINIMAL=1 -DMINIMAL=1 -DNDEBUG -I$(WORKSPACE)/ShadowVaultPkg/Library/SvLibsodium/Include -I$(LIBSODIUM_INCLUDE) -I$(LIBSODIUM_INCLUDE)/sodium -Wno-unused-parameter

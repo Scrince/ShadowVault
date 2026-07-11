@@ -1,0 +1,13 @@
+## @file
+# Minimal FDF placeholder — standalone UEFI application build does not flash firmware.
+##
+
+[FD.SHADOWVAULT_BOOT]
+BaseAddress   = 0x1000000
+Size          = 0x1000000
+ErasePolarity = 1
+
+[Rule.Common.USER_DEFINED.PE32]
+  FILE PE32 = $(NAMED_GUID) {
+    PE32      PE32    Align=4K      $(INF_OUTPUT)/$(MODULE_NAME).efi
+  }

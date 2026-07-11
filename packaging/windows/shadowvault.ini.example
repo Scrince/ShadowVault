@@ -1,0 +1,12 @@
+; Shadow Vault portable configuration (optional)
+; Copy to shadowvault.ini beside svcli.exe or set SHADOWVAULT_CONFIG.
+
+[portable]
+; mode=auto|force|off
+mode=auto
+
+[mount]
+; read_only=0|1
+read_only=0
+; idle_timeout_sec=300
+idle_timeout_sec=300

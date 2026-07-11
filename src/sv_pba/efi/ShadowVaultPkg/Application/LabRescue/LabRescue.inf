@@ -1,0 +1,23 @@
+## @file
+# Lab rescue EFI for QEMU/physical rescue chain-load verification.
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = LabRescue
+  FILE_GUID                      = C3D5E7F9-2B4A-4C6D-8E0F-1A2B3C4D5E6F
+  MODULE_TYPE                    = UEFI_APPLICATION
+  VERSION_STRING                 = 0.1.0
+  ENTRY_POINT                    = UefiMain
+
+[Sources]
+  LabRescue.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  ShadowVaultPkg/ShadowVaultPkg.dec
+
+[LibraryClasses]
+  UefiApplicationEntryPoint
+  UefiLib
+  UefiBootServicesTableLib

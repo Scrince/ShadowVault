@@ -1,0 +1,5 @@
+# Shadow Vault vendored dependency checksums (SHA-256)
+# Update when bumping pinned versions in external/CMakeLists.txt
+
+libsodium-1.0.20-RELEASE.tar.gz  (FetchContent GIT tag 1.0.20-RELEASE)
+argon2-20190702.tar.gz           (FetchContent GIT tag 20190702 / PHC reference)

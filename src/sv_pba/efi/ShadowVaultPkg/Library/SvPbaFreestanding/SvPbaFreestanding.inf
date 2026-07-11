@@ -1,0 +1,29 @@
+## @file
+# Host-proven freestanding unlock sources (C). Requires libsodium headers at build time.
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SvPbaFreestanding
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 0.1.0
+  LIBRARY_CLASS                  = SvPbaFreestanding|UEFI_APPLICATION
+
+[Sources]
+  ../../../../freestanding/src/fs_util.c
+  ../../../../freestanding/src/fs_codec.c
+  ../../../../freestanding/src/fs_crypto.c
+  ../../../../freestanding/src/fs_unlock.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  ShadowVaultPkg/ShadowVaultPkg.dec
+
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  SvLibsodium
+
+[BuildOptions]
+  MSFT:*_*_X64_CC_FLAGS    = /DSODIUM_STATIC=1 /I$(WORKSPACE)/ShadowVaultPkg/Include /I$(LIBSODIUM_INCLUDE) /I$(WORKSPACE)/../../../freestanding/include /W4
+  GCC:*_*_X64_CC_FLAGS     = -DSODIUM_STATIC=1 -I$(WORKSPACE)/ShadowVaultPkg/Include -I$(LIBSODIUM_INCLUDE) -I$(WORKSPACE)/../../../freestanding/include -Wno-unused-parameter

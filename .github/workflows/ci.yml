@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04, windows-2022, macos-13]
+        build_type: [Release]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure
+        run: |
+          EXTRA_FLAGS=""
+          if [ "${{ runner.os }}" = "Windows" ]; then
+            EXTRA_FLAGS="-DSV_BUILD_PBA=ON"
+          fi
+          cmake -B build -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DSV_BUILD_TESTS=ON $EXTRA_FLAGS
+        shell: bash
+
+      - name: Build
+        run: cmake --build build --config ${{ matrix.build_type }}
+
+      - name: Test
+        run: ctest --test-dir build -C ${{ matrix.build_type }} --output-on-failure
+
+      - name: Install WiX Toolset (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          choco install wixtoolset --version=3.14.1 -y --no-progress
+          echo "C:\Program Files (x86)\WiX Toolset v3.14\bin" >> $env:GITHUB_PATH
+
+      - name: Build Windows installer (ZIP + MSI)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          ./scripts/build-installer.ps1 -BuildDir build -OutputDir dist -IncludePba:$false
+          if (-not (Test-Path dist/*-portable.zip)) { throw 'installer zip missing' }
+          if (-not (Test-Path dist/*-win64.msi)) { throw 'installer msi missing' }

@@ -1,0 +1,29 @@
+Shadow Vault — Third-Party Notices
+==================================
+
+Shadow Vault core is licensed under GPLv3. See LICENSE in the install root.
+
+libsodium
+---------
+Copyright (c) Frank Denis
+ISC License — see external/libsodium-src/LICENSE
+
+Argon2 (PHC)
+------------
+Copyright (c) 2015 Daniel Dinu, Dmitry Khovratovich, Jean-Philippe Aumasson, and Samuel Neves
+Apache License 2.0
+
+WinFsp (optional mount component)
+---------------------------------
+Copyright (c) Bill Zissimopoulos
+When the mount feature is enabled, winfsp-x64.dll is redistributed per WinFsp license terms.
+See https://winfsp.dev/
+
+Qt 6 (optional GUI component)
+-----------------------------
+When the GUI is installed, Qt libraries are deployed per LGPL v3 — dynamic linking.
+Source offer: https://www.qt.io/download-open-source
+
+Catch2 (build/tests only — not shipped in installer)
+----------------------------------------------------
+BSL-1.0 — not included in production packages.

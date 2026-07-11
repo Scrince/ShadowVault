@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "algorithm": "argon2id",
+  "password": "test-vector-password-do-not-use",
+  "salt_hex": "101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f",
+  "params": { "m_cost_kib": 8, "t_cost": 1, "p_cost": 1 },
+  "output_len": 64
+}

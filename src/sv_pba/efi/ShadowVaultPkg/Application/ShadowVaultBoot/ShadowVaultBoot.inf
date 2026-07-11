@@ -1,0 +1,32 @@
+## @file
+# ShadowVaultBoot.efi — Phase 1 PBA passphrase shell (Sprint B scaffold).
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = ShadowVaultBoot
+  FILE_GUID                      = A7B3C4D1-8E2F-4A5B-9C6D-1E2F3A4B5C6D
+  MODULE_TYPE                    = UEFI_APPLICATION
+  VERSION_STRING                 = 0.1.0
+  ENTRY_POINT                    = UefiMain
+
+[Sources]
+  ShadowVaultBoot.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  ShadowVaultPkg/ShadowVaultPkg.dec
+
+[LibraryClasses]
+  UefiApplicationEntryPoint
+  UefiLib
+  UefiBootServicesTableLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  PrintLib
+  SvPbaEfiStub
+  SvPbaChainLoad
+  SvPbaHandoff
+
+[BuildOptions]
+  MSFT:*_*_X64_CC_FLAGS = /W4
