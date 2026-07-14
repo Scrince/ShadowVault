@@ -76,3 +76,21 @@ TEST_CASE("C-02 Argon2id rejects empty output buffer", "[unit][crypto][c02]") {
     REQUIRE_FALSE(result.is_ok());
     REQUIRE(result.error() == sv::ErrorCode::InvalidArgument);
 }
+
+TEST_CASE("C-02 Argon2id binds the full 32-byte vault salt", "[unit][crypto][c02]") {
+    REQUIRE(sv::crypto::KdfEngine::is_available());
+
+    auto salt_a = sample_salt();
+    auto salt_b = salt_a;
+    salt_b[31] ^= 0x80;
+
+    const auto password = sv::Span<const std::uint8_t>(
+        reinterpret_cast<const std::uint8_t*>(kPassword),
+        sizeof(kPassword) - 1);
+
+    std::array<std::uint8_t, 64> derived_a {};
+    std::array<std::uint8_t, 64> derived_b {};
+    REQUIRE(sv::crypto::KdfEngine::argon2id(password, salt_a, fast_kdf_params(), derived_a).is_ok());
+    REQUIRE(sv::crypto::KdfEngine::argon2id(password, salt_b, fast_kdf_params(), derived_b).is_ok());
+    REQUIRE(derived_a != derived_b);
+}
