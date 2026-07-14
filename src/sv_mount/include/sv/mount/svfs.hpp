@@ -37,7 +37,7 @@ public:
     [[nodiscard]] Result<std::vector<vault::VaultEntry>> readdir(const std::filesystem::path& fuse_path) const;
 
     [[nodiscard]] Result<int> open(const std::filesystem::path& fuse_path, bool write_requested);
-    void release(int handle);
+    [[nodiscard]] Result<void> release(int handle);
     [[nodiscard]] Result<std::size_t> read(int handle, std::uint64_t offset, Span<std::uint8_t> buffer);
     [[nodiscard]] Result<std::size_t> write(int handle, std::uint64_t offset, Span<const std::uint8_t> buffer);
     [[nodiscard]] Result<void> flush(int handle);
