@@ -242,8 +242,7 @@ int svfs_release(const char* path, struct fuse_file_info* fi) {
     if (state == nullptr || state->svfs == nullptr) {
         return -EIO;
     }
-    state->svfs->release(static_cast<int>(fi->fh));
-    return 0;
+    return result_to_errno(state->svfs->release(static_cast<int>(fi->fh)));
 }
 
 int svfs_create(const char* path, fuse_mode_t mode, struct fuse_file_info* fi) {
