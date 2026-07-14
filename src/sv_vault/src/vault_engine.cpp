@@ -69,6 +69,13 @@ void free_file_chunks(ManifestState& manifest, const Inode& inode) {
     }
 }
 
+Result<void> validate_header_payload(const container::HeaderPayload& payload) {
+    if (payload.chunk_size == 0) {
+        return Result<void>::err(ErrorCode::CorruptContainer, "header chunk_size must be greater than zero");
+    }
+    return Result<void>::ok();
+}
+
 } // namespace
 
 VaultEngine::VaultEngine()
@@ -526,6 +533,11 @@ Result<UnlockedVault> VaultEngine::open(
         payload = opened.value();
     }
 
+    const auto valid_header = validate_header_payload(payload);
+    if (!valid_header.is_ok()) {
+        return Result<UnlockedVault>::err(valid_header.error(), valid_header.message());
+    }
+
     crypto::SecureBuffer vmk;
     vmk.resize(32);
     std::memcpy(vmk.data(), payload.volume_master_key.data(), 32);
@@ -670,6 +682,9 @@ Result<std::uint64_t> VaultEngine::allocate_chunks(
     if (count == 0) {
         return Result<std::uint64_t>::ok(0);
     }
+    if (chunk_size == 0) {
+        return Result<std::uint64_t>::err(ErrorCode::CorruptContainer, "header chunk_size must be greater than zero");
+    }
 
     const std::uint64_t total_chunks = chunk_count_for_data(data_size, chunk_size);
     if (count > total_chunks) {
@@ -704,6 +719,9 @@ Result<void> VaultEngine::put(
     const bool force) {
     if (session.read_only) {
         return Result<void>::err(ErrorCode::InvalidArgument, "vault session is read-only");
+    }
+    if (session.header.chunk_size == 0) {
+        return Result<void>::err(ErrorCode::CorruptContainer, "header chunk_size must be greater than zero");
     }
 
     const auto normalized = normalize_vault_path(vault_path);
