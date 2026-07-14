@@ -30,6 +30,7 @@ set(SV_UNIT_TEST_SOURCES
     unit/vault/test_manifest_cap.cpp
     unit/vault/test_manifest_hash.cpp
     unit/vault/test_hidden_keys.cpp
+    unit/vault/test_chunk_store.cpp
     ${CMAKE_SOURCE_DIR}/src/sv_cli/cli_args.cpp
 )
 
