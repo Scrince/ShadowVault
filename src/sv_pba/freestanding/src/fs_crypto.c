@@ -13,6 +13,33 @@ static int sv_pba_fs_sodium_ready(void) {
     return 1;
 }
 
+static enum sv_pba_status sv_pba_fs_normalize_argon2id_salt(
+    const uint8_t salt[32],
+    uint8_t normalized_out[crypto_pwhash_argon2id_SALTBYTES]) {
+    static const uint8_t k_salt_derive_key[24] = {
+        'S', 'h', 'a', 'd', 'o', 'w', 'V', 'a',
+        'u', 'l', 't', '-', 'K', 'D', 'F', '-',
+        'S', 'a', 'l', 't', '-', 'v', '1', 0,
+    };
+
+    if (salt == NULL || normalized_out == NULL) {
+        return SV_PBA_STATUS_INVALID_ARGUMENT;
+    }
+
+    if (crypto_generichash_blake2b(
+            normalized_out,
+            crypto_pwhash_argon2id_SALTBYTES,
+            salt,
+            32U,
+            k_salt_derive_key,
+            sizeof(k_salt_derive_key))
+        != 0) {
+        return SV_PBA_STATUS_PLATFORM_ERROR;
+    }
+
+    return SV_PBA_STATUS_OK;
+}
+
 static struct sv_pba_fs_kdf_params sv_pba_fs_kdf_from_blob(const uint8_t* blob, size_t len) {
     struct sv_pba_fs_kdf_params params;
     params.m_cost_kib = SV_PBA_FS_DEFAULT_M_COST_KIB;
@@ -98,8 +125,11 @@ enum sv_pba_status sv_pba_fs_derive_header_key(
         return status;
     }
 
-    memset(salt16, 0, sizeof(salt16));
-    memcpy(salt16, sb->outer_salt, sizeof(salt16));
+    status = sv_pba_fs_normalize_argon2id_salt(sb->outer_salt, salt16);
+    if (status != SV_PBA_STATUS_OK) {
+        sv_pba_fs_secure_zero(kdf_secret, sizeof(kdf_secret));
+        return status;
+    }
 
     if (crypto_pwhash_argon2id(
             derived,
