@@ -24,11 +24,6 @@ target_link_libraries(sv_crypto
         sv_libsodium
 )
 
-if(TARGET sv_argon2)
-    target_link_libraries(sv_crypto PRIVATE sv_argon2)
-    target_compile_definitions(sv_crypto PRIVATE SV_HAS_ARGON2=1)
-endif()
-
 target_compile_features(sv_crypto PUBLIC cxx_std_20)
 
 if(MSVC)
