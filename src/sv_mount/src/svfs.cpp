@@ -148,22 +148,27 @@ Result<int> SvFs::open(const std::filesystem::path& fuse_path, const bool write_
     return Result<int>::ok(handle);
 }
 
-void SvFs::release(const int handle) {
+Result<void> SvFs::release(const int handle) {
     std::lock_guard lock(mutex_);
     const auto it = open_handles_.find(handle);
     if (it == open_handles_.end()) {
-        return;
+        return Result<void>::err(ErrorCode::InvalidArgument, "invalid handle");
     }
 
     if (it->second.dirty && !options_.read_only) {
-        (void)engine_.put(
+        const auto put = engine_.put(
             session_,
             it->second.vault_path,
             Span<const std::uint8_t>(it->second.data.data(), it->second.data.size()),
             true);
+        if (!put.is_ok()) {
+            open_handles_.erase(it);
+            return put;
+        }
     }
 
     open_handles_.erase(it);
+    return Result<void>::ok();
 }
 
 Result<std::size_t> SvFs::read(
