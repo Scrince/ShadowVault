@@ -68,8 +68,11 @@ TEST_CASE("MT-06 SvFs hidden protection refuses outer write", "[integration][mou
         sv::Span<const std::uint8_t>(huge.data(), huge.size()));
     if (!write.is_ok()) {
         REQUIRE(write.error() == sv::ErrorCode::HiddenVolumeProtected);
+        const auto close = svfs.release(handle.value());
+        REQUIRE_FALSE(close.is_ok());
+        REQUIRE(close.error() == sv::ErrorCode::HiddenVolumeProtected);
     } else {
-        svfs.release(handle.value());
+        REQUIRE(svfs.release(handle.value()).is_ok());
     }
 
     REQUIRE(sv::vault::SessionStore::instance().remove(path).is_ok());
