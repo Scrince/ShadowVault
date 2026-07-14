@@ -9,6 +9,23 @@
 
 namespace sv::vault {
 
+namespace {
+
+constexpr std::size_t kChunkAadSize = 8 + 4 + 8;
+
+[[nodiscard]] std::array<std::uint8_t, kChunkAadSize> build_chunk_aad(
+    const std::uint64_t inode_id,
+    const std::uint32_t chunk_index,
+    const std::uint64_t manifest_generation) noexcept {
+    std::array<std::uint8_t, kChunkAadSize> aad {};
+    write_le64(aad.data(), inode_id);
+    write_le32(aad.data() + 8, chunk_index);
+    write_le64(aad.data() + 12, manifest_generation);
+    return aad;
+}
+
+} // namespace
+
 ChunkStore::ChunkStore(
     container::ContainerFileStore& container,
     crypto::CryptoProvider& crypto,
@@ -53,10 +70,7 @@ Result<void> ChunkStore::encrypt_chunk(
         return Result<void>::err(nonce.error(), nonce.message());
     }
 
-    std::array<std::uint8_t, 16> aad {};
-    write_le64(aad.data(), inode_id);
-    write_le32(aad.data() + 8, chunk_index);
-    write_le64(aad.data() + 12, manifest_generation);
+    const auto aad = build_chunk_aad(inode_id, chunk_index, manifest_generation);
 
     const auto key = crypto::hkdf_chunk_key(vmk, chunk_id);
     crypto::AeadNonce aead_nonce {};
@@ -80,10 +94,7 @@ Result<std::vector<std::uint8_t>> ChunkStore::decrypt_chunk(
         return Result<std::vector<std::uint8_t>>::err(nonce.error(), nonce.message());
     }
 
-    std::array<std::uint8_t, 16> aad {};
-    write_le64(aad.data(), inode_id);
-    write_le32(aad.data() + 8, chunk_index);
-    write_le64(aad.data() + 12, manifest_generation);
+    const auto aad = build_chunk_aad(inode_id, chunk_index, manifest_generation);
 
     const auto key = crypto::hkdf_chunk_key(vmk, chunk_id);
     crypto::AeadNonce aead_nonce {};
@@ -103,6 +114,11 @@ Result<std::vector<std::uint8_t>> ChunkStore::read_file(
     const std::uint64_t manifest_generation) const {
     if (inode.chunk_count == 0) {
         return Result<std::vector<std::uint8_t>>::ok({});
+    }
+    if (chunk_size_ == 0) {
+        return Result<std::vector<std::uint8_t>>::err(
+            ErrorCode::CorruptContainer,
+            "header chunk_size must be greater than zero");
     }
 
     std::vector<std::uint8_t> output;
@@ -148,6 +164,12 @@ Result<ChunkWriteResult> ChunkStore::write_file(
     const std::uint64_t manifest_generation,
     const Span<const std::uint8_t> data,
     const std::uint64_t first_chunk_id) {
+    if (chunk_size_ == 0) {
+        return Result<ChunkWriteResult>::err(
+            ErrorCode::CorruptContainer,
+            "header chunk_size must be greater than zero");
+    }
+
     const std::uint32_t chunk_count = data.empty()
         ? 0
         : static_cast<std::uint32_t>((data.size() + chunk_size_ - 1) / chunk_size_);
