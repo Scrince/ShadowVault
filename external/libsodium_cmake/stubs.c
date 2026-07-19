@@ -1,5 +1,4 @@
-// Stubs for libsodium implementation pickers not built in the minimal Shadow Vault
-// sodium wrapper. sodium_init() references these unconditionally in 1.0.20.
+
 
 void _crypto_scalarmult_curve25519_pick_best_implementation(void) {}
 void _crypto_stream_salsa20_pick_best_implementation(void) {}
