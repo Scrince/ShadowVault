@@ -17,7 +17,7 @@ constexpr std::size_t kHeaderKeySize = 32;
 constexpr std::size_t kKdfOutputSize = 64;
 constexpr std::array<char, 14> kConfirmInfo = {'s', 'v', '-', 'c', 'o', 'n', 'f', 'i', 'r', 'm', '-', 'v', '1', '\0'};
 
-} // namespace
+} 
 
 KeyManager::KeyManager(crypto::CryptoProvider& crypto) noexcept : crypto_(crypto) {}
 
@@ -39,7 +39,8 @@ crypto::KdfParams default_kdf_params_portable() noexcept {
 
 crypto::KdfParams kdf_params_from_blob(Span<const std::uint8_t> blob) noexcept {
     crypto::KdfParams params {};
-    if (blob.size() < 12) {
+    // Layout: m_cost (4) | t_cost (4) | p_cost (4) | parallelism_reserved (4) = 16 bytes.
+    if (blob.size() < 16) {
         return params;
     }
     params.m_cost_kib = read_le32(blob.data());
@@ -48,6 +49,37 @@ crypto::KdfParams kdf_params_from_blob(Span<const std::uint8_t> blob) noexcept {
     params.parallelism_reserved = read_le32(blob.data() + 12);
     return params;
 }
+
+namespace {
+
+
+constexpr std::uint32_t kOuterKdfMinMemoryKiB = 8192;       
+constexpr std::uint32_t kOuterKdfMaxMemoryKiB = 1048576;    
+constexpr std::uint32_t kOuterKdfMinTimeCost = 1;
+constexpr std::uint32_t kOuterKdfMaxTimeCost = 10;
+constexpr std::uint32_t kOuterKdfMinParallelism = 1;
+constexpr std::uint32_t kOuterKdfMaxParallelism = 4;
+
+[[nodiscard]] crypto::KdfParams clamp_outer_kdf_params(crypto::KdfParams params) noexcept {
+    if (params.m_cost_kib < kOuterKdfMinMemoryKiB) {
+        params.m_cost_kib = kOuterKdfMinMemoryKiB;
+    }
+    if (params.m_cost_kib > kOuterKdfMaxMemoryKiB) {
+        params.m_cost_kib = kOuterKdfMaxMemoryKiB;
+    }
+    if (params.t_cost < kOuterKdfMinTimeCost) {
+        params.t_cost = kOuterKdfMinTimeCost;
+    }
+    if (params.t_cost > kOuterKdfMaxTimeCost) {
+        params.t_cost = kOuterKdfMaxTimeCost;
+    }
+    if (params.p_cost < kOuterKdfMinParallelism || params.p_cost > kOuterKdfMaxParallelism) {
+        params.p_cost = kOuterKdfMinParallelism;
+    }
+    return params;
+}
+
+} 
 
 crypto::KdfParams outer_kdf_params_from_superblock(const container::Superblock& sb) noexcept {
     const bool has_hint = std::any_of(
@@ -59,7 +91,7 @@ crypto::KdfParams outer_kdf_params_from_superblock(const container::Superblock& 
     }
     std::array<std::uint8_t, container::SVLT_KDF_PARAMS_BLOB_SIZE> blob {};
     std::memcpy(blob.data(), sb.outer_kdf_id.data(), sb.outer_kdf_id.size());
-    return kdf_params_from_blob(blob);
+    return clamp_outer_kdf_params(kdf_params_from_blob(blob));
 }
 
 void store_outer_kdf_hint(container::Superblock& sb, const crypto::KdfParams params) noexcept {
@@ -172,4 +204,4 @@ Result<container::HeaderPayload> KeyManager::open_header(
     return payload;
 }
 
-} // namespace sv::vault
+} 

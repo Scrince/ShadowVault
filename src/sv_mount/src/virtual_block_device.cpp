@@ -5,13 +5,13 @@ namespace sv::mount {
 VirtualBlockDevice::VirtualBlockDevice(std::shared_ptr<vault::ChunkStore> chunk_store)
     : chunk_store_(std::move(chunk_store)) {}
 
-Result<std::size_t> VirtualBlockDevice::read(std::uint64_t /*offset*/, Span<std::uint8_t> /*buf*/) {
+Result<std::size_t> VirtualBlockDevice::read(std::uint64_t , Span<std::uint8_t> ) {
     return Result<std::size_t>::err(
         ErrorCode::NotImplemented,
         "Virtual block device read requires a mount backend (WinFsp/FUSE); use svcli file commands in v1");
 }
 
-Result<std::size_t> VirtualBlockDevice::write(std::uint64_t /*offset*/, Span<const std::uint8_t> /*buf*/) {
+Result<std::size_t> VirtualBlockDevice::write(std::uint64_t , Span<const std::uint8_t> ) {
     return Result<std::size_t>::err(
         ErrorCode::NotImplemented,
         "Virtual block device write requires a mount backend (WinFsp/FUSE); use svcli file commands in v1");
@@ -38,4 +38,4 @@ std::size_t VirtualBlockDevice::block_offset(std::uint64_t offset) const {
     return static_cast<std::size_t>(offset);
 }
 
-} // namespace sv::mount
+} 

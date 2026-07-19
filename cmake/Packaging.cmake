@@ -1,6 +1,4 @@
-# Shadow Vault — CPack configuration (ZIP fallback + WiX when available).
 
-include(CPack)
 
 set(CPACK_PACKAGE_NAME "ShadowVault")
 set(CPACK_PACKAGE_VENDOR "ShadowVault")
@@ -19,5 +17,25 @@ if(WIN32)
     set(CPACK_WIX_PROPERTY_ARPURLINFOABOUT "https://github.com/shadowvault/shadowvault")
 endif()
 
-set(CPACK_ARCHIVE_FILE_NAME "ShadowVault-${PROJECT_VERSION}-win64")
-set(CPACK_PACKAGE_FILE_NAME "ShadowVault-${PROJECT_VERSION}-win64")
+string(TOLOWER "${CMAKE_SYSTEM_PROCESSOR}" _sv_package_arch)
+if(_sv_package_arch STREQUAL "amd64" OR _sv_package_arch STREQUAL "x86_64")
+    set(_sv_package_arch "x64")
+elseif(_sv_package_arch STREQUAL "aarch64")
+    set(_sv_package_arch "arm64")
+endif()
+
+if(WIN32)
+    set(_sv_package_platform "win")
+elseif(APPLE)
+    set(_sv_package_platform "macos")
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    set(_sv_package_platform "linux")
+else()
+    string(TOLOWER "${CMAKE_SYSTEM_NAME}" _sv_package_platform)
+endif()
+
+set(_sv_package_stem "ShadowVault-${PROJECT_VERSION}-${_sv_package_platform}-${_sv_package_arch}")
+set(CPACK_ARCHIVE_FILE_NAME "${_sv_package_stem}")
+set(CPACK_PACKAGE_FILE_NAME "${_sv_package_stem}")
+
+include(CPack)

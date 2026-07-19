@@ -42,7 +42,7 @@ void cleanup(const std::filesystem::path& path) {
     std::filesystem::remove(path, ec);
 }
 
-} // namespace
+} 
 
 TEST_CASE("vault create", "[integration][vault][create]") {
     REQUIRE(sv::crypto::KdfEngine::is_available());

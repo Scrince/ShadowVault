@@ -22,7 +22,7 @@ struct Inode {
     std::uint32_t flags = 0;
     std::uint64_t first_chunk_id = 0;
     std::array<std::uint8_t, 24> base_nonce {};
-    /// Manifest generation used when chunk AEAD was written (required for multi-file reads).
+    
     std::uint64_t data_generation = 0;
 };
 
@@ -40,4 +40,4 @@ struct Inode {
     std::uint64_t parent_id,
     std::string_view name) noexcept;
 
-} // namespace sv::vault
+} 

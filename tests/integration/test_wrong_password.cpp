@@ -8,7 +8,7 @@ namespace {
 
 constexpr std::uint64_t kHiddenSize = 32ULL * 1024 * 1024;
 
-} // namespace
+} 
 
 TEST_CASE("HV-06 wrong hidden password fails generic error", "[integration][hidden][hv06]") {
     REQUIRE(sv::crypto::KdfEngine::is_available());

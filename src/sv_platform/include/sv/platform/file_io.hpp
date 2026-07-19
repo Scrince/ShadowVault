@@ -31,7 +31,7 @@ inline constexpr NativeFileHandle kInvalidFileHandle = -1;
 
 [[nodiscard]] Result<void> preallocate_file(const std::filesystem::path& path, std::uint64_t size);
 
-/// Best-effort durable flush for an already-open file handle.
+
 [[nodiscard]] Result<void> sync_file(NativeFileHandle handle);
 
-} // namespace sv::platform
+} 

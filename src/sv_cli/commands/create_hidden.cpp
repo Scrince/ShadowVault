@@ -73,4 +73,4 @@ int create_hidden_command(CliContext& ctx, const std::vector<std::string>& args)
     return output.success("hidden volume created");
 }
 
-} // namespace sv::cli
+} 

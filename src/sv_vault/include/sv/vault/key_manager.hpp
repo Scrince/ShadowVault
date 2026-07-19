@@ -56,4 +56,4 @@ private:
 [[nodiscard]] crypto::KdfParams outer_kdf_params_from_superblock(const container::Superblock& sb) noexcept;
 [[nodiscard]] void store_outer_kdf_hint(container::Superblock& sb, crypto::KdfParams params) noexcept;
 
-} // namespace sv::vault
+} 

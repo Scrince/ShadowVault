@@ -1,11 +1,5 @@
-#Requires -Version 5.1
-<#
-.SYNOPSIS
-  Ensure libsodium 1.0.20 source tree for EFI include paths.
 
-.EXAMPLE
-  .\pba-fetch-libsodium.ps1 -Destination C:\Temp\libsodium-src
-#>
+
 [CmdletBinding()]
 param(
     [string] $Destination = 'C:\Temp\libsodium-src',

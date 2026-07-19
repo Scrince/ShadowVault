@@ -1,12 +1,4 @@
-/** @file
-  ShadowVaultBoot.efi — UEFI pre-boot authentication shell.
 
-  Sprint B: passphrase UI + freestanding unlock.
-  Sprint C: chain-load bootmgfw.efi / shim after unlock.
-  Sprint D: rescue USB detect stub, buffer wipe before chain-load.
-
-  Copyright (c) 2026 ShadowVault contributors. SPDX-License-Identifier: MIT
-**/
 
 #include <Uefi.h>
 #include <Library/UefiLib.h>

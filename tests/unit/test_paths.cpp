@@ -56,6 +56,6 @@ TEST_CASE("is_removable_drive handles system path", "[platform][paths]") {
 
     const auto result = is_removable_drive(exe_dir.value());
     REQUIRE(result.is_ok());
-    // Smoke check only; value depends on host media.
+    
     REQUIRE((result.value() == true || result.value() == false));
 }

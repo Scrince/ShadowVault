@@ -1,11 +1,5 @@
-#Requires -Version 5.1
-<#
-.SYNOPSIS
-  Verify PBA lab vector export + host unlock (no EDK2/QEMU required).
 
-.EXAMPLE
-  .\pba-verify-lab.ps1
-#>
+
 [CmdletBinding()]
 param(
     [string] $BuildDir = 'C:\Temp\shadowvault-build',

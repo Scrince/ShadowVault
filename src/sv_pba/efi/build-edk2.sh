@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build ShadowVaultBoot.efi with EDK2 (GCC5 / X64).
+
 set -euo pipefail
 
 EDK2_ROOT="${1:-${EDK2_ROOT:-}}"

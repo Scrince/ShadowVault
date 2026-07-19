@@ -15,7 +15,7 @@ struct PasswordDialogResult {
     bool read_only = false;
 };
 
-/// Password entry for unlock operations (S4).
+
 class PasswordDialog : public QDialog {
     Q_OBJECT
 
@@ -38,4 +38,4 @@ private:
     QCheckBox* readonly_check_{nullptr};
 };
 
-} // namespace sv::gui
+} 

@@ -56,4 +56,4 @@ int list_command(CliContext& ctx, const std::vector<std::string>& args) {
     return 0;
 }
 
-} // namespace sv::cli
+} 

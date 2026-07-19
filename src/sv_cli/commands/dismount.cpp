@@ -35,7 +35,7 @@ std::string parse_option(const std::vector<std::string>& args, const std::string
     return {};
 }
 
-} // namespace
+} 
 
 int dismount_command(CliContext& ctx, const std::vector<std::string>& args) {
     Output out(ctx.globals);
@@ -75,4 +75,4 @@ int dismount_command(CliContext& ctx, const std::vector<std::string>& args) {
 #endif
 }
 
-} // namespace sv::cli
+} 

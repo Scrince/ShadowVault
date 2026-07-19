@@ -8,7 +8,7 @@ class QPushButton;
 
 namespace sv::gui {
 
-/// Typed-confirmation dialog for dangerous operations (WR-01..WR-06).
+
 class DangerousOpDialog : public QDialog {
     Q_OBJECT
 
@@ -34,4 +34,4 @@ private:
     QPushButton* ok_button_{nullptr};
 };
 
-} // namespace sv::gui
+} 

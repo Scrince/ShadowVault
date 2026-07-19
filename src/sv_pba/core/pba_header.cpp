@@ -22,7 +22,7 @@ SystemHeaderView inspect_header_sector(const Span<const std::uint8_t> sector) no
         return view;
     }
 
-    // Container-compatible encrypted outer header (no leading magic; CRC-validated slot).
+    
     const auto decoded = container::decode_header_sector(sector);
     if (decoded.is_ok()) {
         view.magic_ok = true;
@@ -31,4 +31,4 @@ SystemHeaderView inspect_header_sector(const Span<const std::uint8_t> sector) no
     return view;
 }
 
-} // namespace sv::pba
+} 

@@ -10,7 +10,7 @@ sv::vault::ManifestState build_golden_manifest() {
     return created.value();
 }
 
-} // namespace
+} 
 
 TEST_CASE("M-06 manifest_root_hash golden vector", "[unit][vault][m06]") {
     const auto manifest = build_golden_manifest();

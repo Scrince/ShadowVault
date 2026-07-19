@@ -33,7 +33,7 @@ void log_message(LogLevel level, std::string_view component, std::string_view me
     std::cerr << '[' << level_name(level) << "] " << component << ": " << message << '\n';
 }
 
-} // namespace
+} 
 
 void set_log_level(LogLevel level) noexcept {
     g_log_level = level;
@@ -59,4 +59,4 @@ void log_debug(std::string_view component, std::string_view message) {
     log_message(LogLevel::Debug, component, message);
 }
 
-} // namespace sv
+} 

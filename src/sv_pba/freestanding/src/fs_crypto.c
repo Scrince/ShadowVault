@@ -40,20 +40,40 @@ static enum sv_pba_status sv_pba_fs_normalize_argon2id_salt(
     return SV_PBA_STATUS_OK;
 }
 
+static struct sv_pba_fs_kdf_params sv_pba_fs_clamp_kdf_params(struct sv_pba_fs_kdf_params params) {
+    if (params.m_cost_kib < SV_PBA_FS_MIN_M_COST_KIB) {
+        params.m_cost_kib = SV_PBA_FS_MIN_M_COST_KIB;
+    }
+    if (params.m_cost_kib > SV_PBA_FS_MAX_M_COST_KIB) {
+        params.m_cost_kib = SV_PBA_FS_MAX_M_COST_KIB;
+    }
+    if (params.t_cost < SV_PBA_FS_MIN_T_COST) {
+        params.t_cost = SV_PBA_FS_MIN_T_COST;
+    }
+    if (params.t_cost > SV_PBA_FS_MAX_T_COST) {
+        params.t_cost = SV_PBA_FS_MAX_T_COST;
+    }
+    if (params.p_cost < SV_PBA_FS_MIN_P_COST || params.p_cost > SV_PBA_FS_MAX_P_COST) {
+        params.p_cost = SV_PBA_FS_DEFAULT_P_COST;
+    }
+    return params;
+}
+
 static struct sv_pba_fs_kdf_params sv_pba_fs_kdf_from_blob(const uint8_t* blob, size_t len) {
     struct sv_pba_fs_kdf_params params;
     params.m_cost_kib = SV_PBA_FS_DEFAULT_M_COST_KIB;
     params.t_cost = SV_PBA_FS_DEFAULT_T_COST;
     params.p_cost = SV_PBA_FS_DEFAULT_P_COST;
 
-    if (blob == NULL || len < 12) {
-        return params;
+    /* Host blob is 16 bytes (m/t/p + reserved); require full width to avoid partial reads. */
+    if (blob == NULL || len < 16) {
+        return sv_pba_fs_clamp_kdf_params(params);
     }
 
     params.m_cost_kib = sv_pba_fs_read_le32(blob);
     params.t_cost = sv_pba_fs_read_le32(blob + 4);
     params.p_cost = sv_pba_fs_read_le32(blob + 8);
-    return params;
+    return sv_pba_fs_clamp_kdf_params(params);
 }
 
 struct sv_pba_fs_kdf_params sv_pba_fs_outer_kdf_params(const struct sv_pba_fs_superblock* sb) {

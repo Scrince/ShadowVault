@@ -1,8 +1,5 @@
 #pragma once
 
-/**
- * Freestanding C unlock API — host-tested with libsodium; EFI links same sources.
- */
 
 #include <stddef.h>
 #include <stdint.h>
@@ -28,12 +25,7 @@ typedef struct sv_pba_unlock_request {
     size_t password_utf8_len;
 } sv_pba_unlock_request_t;
 
-/**
- * Unwrap VMK from encrypted primary outer header + tail superblock (password-only).
- *
- * @param request  Header sector, superblock, and UTF-8 passphrase bytes.
- * @param vmk_out  32-byte output buffer for volume master key.
- */
+
 enum sv_pba_status sv_pba_unlock_primary_header(
     const sv_pba_unlock_request_t* request,
     uint8_t vmk_out[32]);

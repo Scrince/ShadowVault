@@ -46,7 +46,7 @@ private:
     bool valid_{true};
 };
 
-} // namespace
+} 
 
 Result<std::string> read_line_no_echo() {
     if (!isatty(STDIN_FILENO)) {
@@ -95,6 +95,6 @@ Result<std::string> read_line_no_echo() {
     return Result<std::string>::ok(std::move(value));
 }
 
-} // namespace sv::platform::detail
+} 
 
 #endif

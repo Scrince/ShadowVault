@@ -1,8 +1,4 @@
-/** @file
-  UEFI platform hooks for vendored libsodium (malloc + RNG).
 
-  Copyright (c) 2026 ShadowVault contributors. SPDX-License-Identifier: MIT
-**/
 
 #include <Library/BaseLib.h>
 #include <Library/BaseMemoryLib.h>

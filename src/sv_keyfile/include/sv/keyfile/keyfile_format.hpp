@@ -25,4 +25,4 @@ struct KeyfileEntry {
 [[nodiscard]] Result<std::vector<KeyfileEntry>> read_keyfiles(
     const std::vector<std::filesystem::path>& paths);
 
-} // namespace sv::keyfile
+} 

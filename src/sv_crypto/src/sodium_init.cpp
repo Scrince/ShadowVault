@@ -13,4 +13,4 @@ bool ensure_sodium_initialized() noexcept {
     return initialized;
 }
 
-} // namespace sv::crypto::detail
+} 

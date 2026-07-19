@@ -7,7 +7,7 @@
 
 namespace sv::platform {
 
-/// RAII exclusive advisory lock on a container file.
+
 class FileLock {
 public:
     [[nodiscard]] static Result<FileLock> acquire(const std::filesystem::path& path);
@@ -31,4 +31,4 @@ private:
     std::unique_ptr<Impl> impl_;
 };
 
-} // namespace sv::platform
+} 

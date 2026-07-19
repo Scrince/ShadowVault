@@ -21,7 +21,7 @@ std::string blocked_features_json(const portable::PortableStatus& status) {
     return json.str();
 }
 
-} // namespace
+} 
 
 int portable_status_command(CliContext& ctx, const std::vector<std::string>& args) {
     if (args_contain_help(args)) {
@@ -75,4 +75,4 @@ int portable_status_command(CliContext& ctx, const std::vector<std::string>& arg
     return 0;
 }
 
-} // namespace sv::cli
+} 

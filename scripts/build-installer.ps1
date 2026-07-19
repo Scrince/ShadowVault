@@ -1,23 +1,5 @@
-#Requires -Version 5.1
-<#
-.SYNOPSIS
-  Build Shadow Vault production Windows installer (MSI + portable ZIP).
 
-.PARAMETER BuildDir
-  CMake build directory (Release).
 
-.PARAMETER OutputDir
-  Directory for ShadowVault-x.y.z-win64.msi and .zip.
-
-.PARAMETER IncludePba
-  Bundle ShadowVaultBoot.efi and PBA lab scripts as optional MSI feature.
-
-.PARAMETER IncludeGui
-  Run windeployqt and bundle svgui when Qt build is present.
-
-.EXAMPLE
-  .\build-installer.ps1 -BuildDir C:\Temp\shadowvault-build -IncludePba
-#>
 [CmdletBinding()]
 param(
     [string] $BuildDir = 'C:\Temp\shadowvault-build',
@@ -72,7 +54,7 @@ function Find-WixTool {
 function New-PlaceholderIcon {
     param([string] $Path)
     if (Test-Path $Path) { return }
-    # Minimal valid 16x16 32bpp ICO (single pixel)
+    
     $bytes = [byte[]]@(
         0,0,1,0,1,0,16,16,0,0,1,0,32,0,40,1,0,0,22,0,0,0,
         40,0,0,0,16,0,0,0,32,0,0,0,1,0,32,0,0,0,0,0,0,1,0,0,
@@ -95,7 +77,7 @@ function New-PlaceholderIcon {
     [IO.File]::WriteAllBytes($Path, $bytes)
 }
 
-# --- Read version from CMake project ---
+
 $cmakeLists = Get-Content (Join-Path $SourceRoot 'CMakeLists.txt') -Raw
 if ($cmakeLists -match 'project\s*\(\s*ShadowVault\s+VERSION\s+([\d.]+)') {
     $ProductVersion = $Matches[1]
@@ -104,7 +86,7 @@ else {
     $ProductVersion = '1.2.0'
 }
 
-# WiX/MSI ProductVersion requires exactly four numeric fields (major.minor.build.revision).
+
 $versionParts = $ProductVersion.Split('.')
 while ($versionParts.Count -lt 4) { $versionParts += '0' }
 $MsiProductVersion = ($versionParts[0..3] -join '.')
@@ -131,7 +113,7 @@ if ($LASTEXITCODE -ne 0) { throw 'cmake configure failed' }
 & $cmake --build $BuildDir --config Release | Out-Host
 if ($LASTEXITCODE -ne 0) { throw 'cmake build failed' }
 
-# --- Stage install tree ---
+
 if (Test-Path $Staging) { Remove-Item -Recurse -Force $Staging }
 $prefix = Join-Path $Staging 'root'
 New-Item -ItemType Directory -Force -Path (Join-Path $prefix 'bin') | Out-Null
@@ -170,7 +152,7 @@ Copy-Item -Force (Join-Path $SourceRoot 'packaging\THIRD_PARTY_NOTICES.txt') (Jo
 Copy-Item -Force (Join-Path $SourceRoot 'docs\cli-spec.md') (Join-Path $prefix 'doc\cli-spec.md')
 Copy-Item -Force (Join-Path $SourceRoot 'packaging\windows\shadowvault.ini.example') (Join-Path $prefix 'doc\shadowvault.ini.example')
 
-# Flatten staging for heat: MSI installs to INSTALLFOLDER with bin/ + doc/
+
 $flat = Join-Path $Staging 'msi'
 New-Item -ItemType Directory -Force -Path (Join-Path $flat 'bin') | Out-Null
 New-Item -ItemType Directory -Force -Path (Join-Path $flat 'doc') | Out-Null
@@ -201,7 +183,7 @@ if ($IncludePba) {
     }
 }
 
-# --- USB-ready portable release (flat layout) ---
+
 $portableScript = Join-Path $SourceRoot 'scripts\build-portable.ps1'
 if (Test-Path $portableScript) {
     & $portableScript -BuildDir $BuildDir -OutputDir $OutputDir -SourceRoot $SourceRoot -SkipBuild
@@ -215,7 +197,7 @@ else {
     Write-Host "Portable ZIP: $zipPath"
 }
 
-# --- MSI via WiX ---
+
 $candle = Find-WixTool 'candle'
 $light = Find-WixTool 'light'
 $heat = Find-WixTool 'heat'
@@ -231,7 +213,7 @@ New-Item -ItemType Directory -Force -Path $wxsDir | Out-Null
 $harvested = Join-Path $wxsDir 'harvested.wxs'
 if ($IncludePba) {
     $productWxs = Join-Path $SourceRoot 'packaging\windows\ShadowVault.wxs'
-    # PBA/scripts are explicit WiX components — heat only bin/ + doc/ to avoid ICE30 duplicates.
+    
     $heatFlat = Join-Path $Staging 'heat'
     New-Item -ItemType Directory -Force -Path (Join-Path $heatFlat 'bin'), (Join-Path $heatFlat 'doc') | Out-Null
     Copy-Item -Force (Join-Path $flat 'bin\*') (Join-Path $heatFlat 'bin\')

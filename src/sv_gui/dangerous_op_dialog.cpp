@@ -54,4 +54,4 @@ void DangerousOpDialog::on_text_changed(const QString& text) {
     ok_button_->setEnabled(text == confirm_phrase_);
 }
 
-} // namespace sv::gui
+} 

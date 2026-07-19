@@ -30,4 +30,4 @@ struct RepairOptions {
     Span<const std::uint8_t> vmk,
     RepairOptions options = {}) noexcept;
 
-} // namespace sv::recovery
+} 

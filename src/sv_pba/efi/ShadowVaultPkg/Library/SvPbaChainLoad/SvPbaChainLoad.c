@@ -1,8 +1,4 @@
-/** @file
-  Chain-load a UEFI PE image from the PBA ESP volume.
 
-  Copyright (c) 2026 ShadowVault contributors. SPDX-License-Identifier: MIT
-**/
 
 #include <Uefi.h>
 #include <Library/BaseMemoryLib.h>

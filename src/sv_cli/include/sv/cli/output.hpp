@@ -42,4 +42,4 @@ std::string json_escape(const std::string& value);
 std::string json_string(const std::string& value);
 std::string json_path(const std::filesystem::path& path);
 
-} // namespace sv::cli
+} 

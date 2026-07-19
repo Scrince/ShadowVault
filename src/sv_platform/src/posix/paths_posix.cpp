@@ -47,7 +47,7 @@ bool is_known_removable_mount(const std::filesystem::path& path) {
         || native.rfind("/Volumes/", 0) == 0;
 }
 
-} // namespace
+} 
 
 Result<std::filesystem::path> query_executable_directory() {
 #if defined(__linux__)
@@ -117,6 +117,6 @@ Result<bool> query_is_removable_drive(const std::filesystem::path& path) {
     return Result<bool>::ok(is_known_removable_mount(path));
 }
 
-} // namespace sv::platform::detail
+} 
 
 #endif

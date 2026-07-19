@@ -135,4 +135,4 @@ Result<VerifyReport> verify_vault(
     return report;
 }
 
-} // namespace sv::vault
+} 

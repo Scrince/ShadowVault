@@ -24,13 +24,13 @@ struct CredentialReadOptions {
     std::string prompt_label = "Password: ";
 };
 
-/// Parses credential flags at args[i]; advances i when a value token is consumed.
+
 [[nodiscard]] bool parse_credential_arg(
     const std::vector<std::string>& args,
     std::size_t& i,
     CredentialReadOptions& options);
 
-/// Strips credential and command flags, returning positional path arguments only.
+
 [[nodiscard]] std::vector<std::string> collect_positional_args(const std::vector<std::string>& args);
 
 [[nodiscard]] Result<vault::CredentialMaterial> read_credentials(
@@ -50,7 +50,7 @@ struct SessionResolveOptions {
     bool replace_session = true;
 };
 
-/// Returns an unlocked session for the container, opening with credential flags when needed.
+
 [[nodiscard]] Result<vault::UnlockedVault*> ensure_vault_session(
     CliContext& ctx,
     const std::filesystem::path& container_path,
@@ -59,4 +59,4 @@ struct SessionResolveOptions {
 
 [[nodiscard]] vault::VaultEngine& vault_engine();
 
-} // namespace sv::cli
+} 

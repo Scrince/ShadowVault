@@ -10,7 +10,7 @@ namespace {
 
 constexpr std::size_t kKdfSecretSize = 32;
 
-} // namespace
+} 
 
 Result<std::array<std::uint8_t, 32>> combine_credentials(
     const std::string_view password_utf8,
@@ -50,4 +50,4 @@ Result<std::array<std::uint8_t, 32>> combine_credentials(
     return Result<std::array<std::uint8_t, 32>>::ok(step);
 }
 
-} // namespace sv::keyfile
+} 

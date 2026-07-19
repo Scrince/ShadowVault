@@ -1,8 +1,4 @@
-/** @file
-  Minimal randombytes API for UEFI (replaces upstream randombytes.c).
 
-  Copyright (c) 2026 ShadowVault contributors. SPDX-License-Identifier: MIT
-**/
 
 #include <limits.h>
 #include <stddef.h>

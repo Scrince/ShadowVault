@@ -303,7 +303,7 @@ std::string mount_key(const std::filesystem::path& mount_point) {
 
 #endif
 
-} // namespace
+} 
 
 FuseMountBackend::~FuseMountBackend() = default;
 
@@ -344,7 +344,7 @@ Result<void> FuseMountBackend::mount(
         std::lock_guard lock(g_fuse_mutex);
         const auto it = g_fuse_mounts.find(key);
         if (it != g_fuse_mounts.end()) {
-            // IO timestamp tracked by MountManager; no-op here.
+            
             (void)it;
         }
     };
@@ -415,13 +415,13 @@ Result<void> FuseMountBackend::dismount(const std::filesystem::path& mount_point
             state->fuse_thread.join();
         }
 
-        // private_data points at this state; drop SvFs/engine before destroying session.
+        
         state->svfs.reset();
         state->engine.reset();
 
 #if defined(SV_HAVE_WINFSP)
-        // WinFsp FUSE3: fuse_unmount() is an alias for destroying the inner session.
-        // fuse_destroy() also frees f3->fuse when still set — call it once after loop exit.
+        
+        
         fuse_destroy(state->fuse_handle);
 #else
         fuse_unmount(state->fuse_handle);
@@ -454,4 +454,4 @@ std::vector<MountSession> FuseMountBackend::list_active() const {
 #endif
 }
 
-} // namespace sv::mount
+} 

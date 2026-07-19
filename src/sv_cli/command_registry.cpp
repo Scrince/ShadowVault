@@ -153,4 +153,4 @@ void CommandRegistry::print_command_help(const Output& output, const CommandDesc
     std::cout << "\nRun 'sv " << command.name << " --help' with --json for machine-readable help.\n";
 }
 
-} // namespace sv::cli
+} 

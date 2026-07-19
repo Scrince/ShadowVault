@@ -15,7 +15,7 @@ constexpr std::uint32_t kCrc32Polynomial = 0xEDB88320U;
     return crc;
 }
 
-} // namespace
+} 
 
 std::uint32_t crc32_ieee(Span<const std::uint8_t> data) noexcept {
     std::uint32_t crc = 0xFFFFFFFFU;
@@ -25,4 +25,4 @@ std::uint32_t crc32_ieee(Span<const std::uint8_t> data) noexcept {
     return crc ^ 0xFFFFFFFFU;
 }
 
-} // namespace sv
+} 

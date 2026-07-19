@@ -19,7 +19,7 @@ sv::vault::Inode make_dir(const std::uint64_t inode_id, const std::uint64_t pare
     return inode;
 }
 
-} // namespace
+} 
 
 TEST_CASE("M-01 empty manifest create", "[unit][vault][m01]") {
     const auto manifest = sv::vault::create_empty_manifest(8ULL * 1024 * 1024, 64 * 1024);

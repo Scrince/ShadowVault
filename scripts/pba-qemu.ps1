@@ -1,11 +1,5 @@
-#Requires -Version 5.1
-<#
-.SYNOPSIS
-  Boot OVMF with a ShadowVault PBA ESP image (QEMU on Windows).
 
-.EXAMPLE
-  .\pba-qemu.ps1 -EspImage C:\Temp\shadowvault-pba-esp.img
-#>
+
 [CmdletBinding()]
 param(
     [string] $EspImage = 'C:\Temp\shadowvault-pba-esp.img',
@@ -72,7 +66,7 @@ if (-not (Test-Path $OvmfVars)) {
     Write-Host "Seeded OVMF vars: $OvmfVars"
 }
 
-# QEMU -drive parsing breaks on spaces in "Program Files" paths.
+
 $OvmfCodeLocal = 'C:\Temp\shadowvault-ovmf-code.fd'
 $OvmfVarsLocal = 'C:\Temp\shadowvault-ovmf-vars.fd'
 New-Item -ItemType Directory -Force -Path 'C:\Temp' | Out-Null

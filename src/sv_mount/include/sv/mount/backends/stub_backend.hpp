@@ -4,7 +4,7 @@
 
 namespace sv::mount {
 
-/// Placeholder backend until WinFsp (Windows) or FUSE (Linux) is integrated.
+
 class StubBackend final : public MountBackend {
 public:
     [[nodiscard]] std::string name() const override;
@@ -18,4 +18,4 @@ public:
     [[nodiscard]] std::vector<MountSession> list_active() const override;
 };
 
-} // namespace sv::mount
+} 

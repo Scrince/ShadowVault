@@ -9,7 +9,7 @@
 
 namespace sv::crypto {
 
-/// RAII byte buffer that locks pages (best effort) and wipes on destruction.
+
 class SecureBuffer {
 public:
     SecureBuffer() = default;
@@ -43,4 +43,4 @@ private:
     bool locked_ = false;
 };
 
-} // namespace sv::crypto
+} 

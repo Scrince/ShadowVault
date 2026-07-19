@@ -4,7 +4,7 @@
 
 namespace sv {
 
-/// CLI process exit codes (see docs/cli-spec.md).
+
 namespace exit_codes {
 
 constexpr int success = 0;
@@ -17,6 +17,6 @@ constexpr int vault_locked = 6;
 constexpr int io_error = 7;
 constexpr int manifest_full = 8;
 
-} // namespace exit_codes
+} 
 
-} // namespace sv
+} 

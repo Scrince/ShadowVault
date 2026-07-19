@@ -1,8 +1,4 @@
-/** @file
-  VMK handoff blob for Phase 1 lab spike (OQ-S01).
 
-  Copyright (c) 2026 ShadowVault contributors. SPDX-License-Identifier: GPL-3.0-or-later
-**/
 
 #ifndef SV_PBA_HANDOFF_H_
 #define SV_PBA_HANDOFF_H_
@@ -39,4 +35,4 @@ SvPbaEfiClearVmkHandoff (
   VOID
   );
 
-#endif // SV_PBA_HANDOFF_H_
+#endif 

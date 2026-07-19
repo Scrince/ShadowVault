@@ -50,7 +50,7 @@ void fill_unlock_request(
     request.credentials.password_utf8 = password_utf8;
 }
 
-} // namespace
+} 
 
 TEST_CASE("P1-04 unlock_primary_header on real .svlt vault", "[integration][pba][p104]") {
     REQUIRE(sv::crypto::KdfEngine::is_available());

@@ -12,7 +12,7 @@
 
 namespace sv::mount {
 
-/// Thread-safe LRU cache for decrypted chunk plaintext (M9).
+
 class ChunkCache {
 public:
     explicit ChunkCache(CachePolicy policy = {});
@@ -36,4 +36,4 @@ private:
     std::unordered_map<std::uint64_t, std::list<Entry>::iterator> index_;
 };
 
-} // namespace sv::mount
+} 

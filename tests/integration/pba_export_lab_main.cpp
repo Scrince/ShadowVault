@@ -18,7 +18,7 @@ bool write_file(const std::filesystem::path& path, const std::vector<std::uint8_
     return out.good();
 }
 
-} // namespace
+} 
 
 int main(int argc, char** argv) {
     if (argc < 2) {

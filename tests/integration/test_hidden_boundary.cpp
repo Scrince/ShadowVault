@@ -20,7 +20,7 @@ std::vector<std::uint8_t> bytes_of_size(std::size_t size) {
     return std::vector<std::uint8_t>(size, 0xCD);
 }
 
-} // namespace
+} 
 
 TEST_CASE("HV-04 outer put blocked at hidden offset via bitmap", "[integration][hidden][hv04]") {
     REQUIRE(sv::crypto::KdfEngine::is_available());

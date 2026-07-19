@@ -60,7 +60,7 @@ public:
     virtual bool constant_time_eq(Span<const std::uint8_t> a, Span<const std::uint8_t> b) = 0;
 };
 
-/// Returns nullptr when the backend cannot be initialized (no throw).
+
 [[nodiscard]] std::unique_ptr<CryptoProvider> create_default_crypto_provider() noexcept;
 
-} // namespace sv::crypto
+} 

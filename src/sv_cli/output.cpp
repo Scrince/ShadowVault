@@ -14,7 +14,7 @@ std::string indent_json(const std::string& body) {
     return body;
 }
 
-} // namespace
+} 
 
 Output::Output(const GlobalOptions& options) : options_(options) {}
 
@@ -49,8 +49,8 @@ int Output::error(ErrorCode code, const std::string& message) const {
         json << '}';
         std::cout << json.str() << '\n';
     } else {
-        // Write user-facing errors to stdout so shells (e.g. PowerShell) do not
-        // surface NativeCommandError records for expected non-zero exits.
+        
+        
         std::cout << "error: " << message << '\n';
     }
     return exit_code_for(code);
@@ -104,4 +104,4 @@ std::string json_path(const std::filesystem::path& path) {
     return json_string(path.generic_string());
 }
 
-} // namespace sv::cli
+} 

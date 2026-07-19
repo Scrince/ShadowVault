@@ -10,7 +10,7 @@ namespace {
 
 constexpr std::uint64_t kHiddenSize = 32ULL * 1024 * 1024;
 
-} // namespace
+} 
 
 TEST_CASE("HV-01 create hidden in empty outer", "[integration][hidden][hv01]") {
     REQUIRE(sv::crypto::KdfEngine::is_available());

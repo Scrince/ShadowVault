@@ -70,4 +70,4 @@ int verify_command(CliContext& ctx, const std::vector<std::string>& args) {
     return output.success(report.value().message);
 }
 
-} // namespace sv::cli
+} 

@@ -35,7 +35,7 @@ sv::container::Superblock make_layout_superblock() {
     return sb;
 }
 
-} // namespace
+} 
 
 TEST_CASE("P1-06 freestanding C API matches C++ unlock_primary_header", "[unit][pba][p106]") {
     auto sb = make_layout_superblock();

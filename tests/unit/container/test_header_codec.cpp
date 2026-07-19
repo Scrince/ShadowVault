@@ -46,7 +46,7 @@ sv::container::HeaderPayload sample_payload() {
     return payload;
 }
 
-} // namespace
+} 
 
 TEST_CASE("H-01 header payload encode/decode roundtrip", "[unit][container][h01]") {
     const auto payload = sample_payload();

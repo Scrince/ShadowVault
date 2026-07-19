@@ -30,4 +30,4 @@ int lock_command(CliContext& ctx, const std::vector<std::string>& args) {
     return output.success("locked vault: " + path.generic_string());
 }
 
-} // namespace sv::cli
+} 

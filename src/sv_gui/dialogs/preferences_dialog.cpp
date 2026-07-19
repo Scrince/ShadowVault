@@ -64,4 +64,4 @@ PreferencesDialog::PreferencesDialog(QWidget* parent)
     connect(buttons, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }
 
-} // namespace sv::gui
+} 

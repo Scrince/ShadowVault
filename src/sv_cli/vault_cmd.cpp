@@ -16,7 +16,7 @@ namespace {
 
 vault::VaultEngine g_engine;
 
-} // namespace
+} 
 
 vault::VaultEngine& vault_engine() {
     return g_engine;
@@ -126,7 +126,7 @@ namespace {
     return Result<std::string>::ok(std::move(value));
 }
 
-} // namespace
+} 
 
 bool parse_credential_arg(
     const std::vector<std::string>& args,
@@ -324,4 +324,4 @@ Result<vault::UnlockedVault*> ensure_vault_session(
     return vault::SessionStore::instance().find(container_path);
 }
 
-} // namespace sv::cli
+} 

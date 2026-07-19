@@ -10,9 +10,7 @@ namespace sv::mount {
 
 namespace {
 
-// WinFsp FUSE teardown can leave MountManager::mutex_ unsafe to lock during
-// std::atexit (after all tests have already dismounted). Track active mounts
-// atomically so the atexit handler can skip cleanup when count is zero.
+
 std::atomic<std::size_t> g_active_mount_sessions{0};
 
 std::unique_ptr<MountBackend> create_default_backend() {
@@ -37,7 +35,7 @@ void ensure_atexit_registered() {
     }
 }
 
-} // namespace
+} 
 
 MountManager& MountManager::instance() {
     static MountManager manager;
@@ -194,4 +192,4 @@ MountSessionId MountManager::next_session_id() {
     return next_id_++;
 }
 
-} // namespace sv::mount
+} 

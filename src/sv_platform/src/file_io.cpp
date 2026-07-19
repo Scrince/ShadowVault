@@ -14,6 +14,7 @@
 #include <windows.h>
 #else
 #include <fcntl.h>
+#include <sys/stat.h>
 #include <unistd.h>
 #endif
 
@@ -29,7 +30,7 @@ Result<void> io_error_message(const std::string& message) {
     return Result<void>::err(ErrorCode::IoError, message);
 }
 
-} // namespace
+} 
 
 Result<std::vector<std::uint8_t>> read_file(
     const std::filesystem::path& path,
@@ -163,9 +164,14 @@ Result<void> preallocate_file(const std::filesystem::path& path, const std::uint
     return Result<void>::ok();
 #else
     const auto native = path.native();
-    const int fd = ::open(native.c_str(), O_RDWR | O_CREAT, 0644);
+    // Containers hold ciphertext; never create world-readable vault files.
+    const int fd = ::open(native.c_str(), O_RDWR | O_CREAT, 0600);
     if (fd < 0) {
         return Result<void>::err(ErrorCode::IoError, std::strerror(errno));
+    }
+
+    if (::fchmod(fd, 0600) != 0) {
+        // Best-effort; continue if the filesystem rejects chmod (e.g. some network FS).
     }
 
     if (::ftruncate(fd, static_cast<off_t>(size)) != 0) {
@@ -201,4 +207,4 @@ Result<void> sync_file(const NativeFileHandle handle) {
 #endif
 }
 
-} // namespace sv::platform
+} 

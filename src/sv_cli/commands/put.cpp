@@ -49,4 +49,4 @@ int put_command(CliContext& ctx, const std::vector<std::string>& args) {
     return output.success("stored " + vault_path.generic_string());
 }
 
-} // namespace sv::cli
+} 

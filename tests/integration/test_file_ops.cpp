@@ -16,7 +16,7 @@ std::vector<std::uint8_t> bytes_of_size(std::size_t size, std::uint8_t fill = 0x
     return std::vector<std::uint8_t>(size, fill);
 }
 
-} // namespace
+} 
 
 TEST_CASE("F-01 put get small file", "[integration][file][f01]") {
     REQUIRE(sv::crypto::KdfEngine::is_available());

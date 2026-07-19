@@ -27,7 +27,7 @@ std::vector<std::uint8_t> bytes_of_size(std::size_t size, std::uint8_t fill = 0x
     return std::vector<std::uint8_t>(size, fill);
 }
 
-} // namespace
+} 
 
 TEST_CASE("HV-03 outer put near boundary fails with protect", "[integration][hidden][hv03]") {
     REQUIRE(sv::crypto::KdfEngine::is_available());

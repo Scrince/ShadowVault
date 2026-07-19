@@ -8,7 +8,7 @@
 
 namespace sv::crypto {
 
-/// Argon2id KDF dispatch. Returns NotImplemented when argon2 was not fetched.
+
 class KdfEngine {
 public:
     [[nodiscard]] static Result<void> argon2id(
@@ -20,4 +20,4 @@ public:
     [[nodiscard]] static bool is_available() noexcept;
 };
 
-} // namespace sv::crypto
+} 

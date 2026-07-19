@@ -74,7 +74,7 @@ namespace {
     return Result<crypto::SecureBuffer>::ok(std::move(vmk));
 }
 
-} // namespace
+} 
 
 int repair_command(CliContext& ctx, const std::vector<std::string>& args) {
     Output output(ctx.globals);
@@ -175,4 +175,4 @@ int repair_command(CliContext& ctx, const std::vector<std::string>& args) {
     return output.success("vault repair completed");
 }
 
-} // namespace sv::cli
+} 

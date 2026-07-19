@@ -16,7 +16,7 @@ void write_bytes(std::uint8_t* out, std::size_t offset, Span<const std::uint8_t>
     std::memcpy(out + offset, bytes.data(), bytes.size());
 }
 
-} // namespace
+} 
 
 std::uint32_t compute_superblock_crc(Span<const std::uint8_t> encoded_without_crc) noexcept {
     return crc32_ieee(encoded_without_crc.subspan(0, kSuperblockCrcCoverage));
@@ -118,4 +118,4 @@ Result<void> validate_superblock(const Superblock& sb) noexcept {
     return Result<void>::ok();
 }
 
-} // namespace sv::container
+} 

@@ -1,16 +1,5 @@
-#Requires -Version 5.1
-<#
-.SYNOPSIS
-  Create ShadowVault release-signing material (PGP + local code-signing cert).
 
-.DESCRIPTION
-  Mirrors the YellowSphere layout:
-    docs/ShadowVault_Release_Signing_2026_pubkey.asc
-    docs/ShadowVault_Local_Code_Signing_2026.cer
-    .gnupg-release/private-keys-v1.d/ShadowVault_Local_Code_Signing_2026.{pfx,p12}
 
-  Private material stays under .gnupg-release/ (gitignored).
-#>
 [CmdletBinding()]
 param(
     [string] $SourceRoot = 'T:\ShadowVault',

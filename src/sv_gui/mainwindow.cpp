@@ -337,4 +337,4 @@ void MainWindow::on_dismount() {
     show_op_result(QStringLiteral("Dismount"), vault_service_.dismount_vault(path));
 }
 
-} // namespace sv::gui
+} 

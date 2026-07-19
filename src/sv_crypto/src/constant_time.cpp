@@ -19,4 +19,4 @@ bool constant_time_compare(
     return sodium_memcmp(left.data(), right.data(), left.size()) == 0;
 }
 
-} // namespace sv::crypto
+} 

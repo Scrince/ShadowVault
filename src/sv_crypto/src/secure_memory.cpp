@@ -26,4 +26,4 @@ void wipe_secure_region(Span<std::uint8_t> region) noexcept {
     }
 }
 
-} // namespace sv::crypto::detail
+} 

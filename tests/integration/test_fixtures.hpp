@@ -62,7 +62,7 @@ inline vault::CreateVaultOptions file_ops_create_options() {
     return options;
 }
 
-/// Fast Argon2id for QEMU/EFI lab vectors (PBA unlock smoke tests).
+
 inline vault::CreateVaultOptions pba_lab_create_options() {
     vault::CreateVaultOptions options {};
     options.container_size = 4ULL * 1024 * 1024;
@@ -180,4 +180,4 @@ inline sv::Result<void> corrupt_primary_outer_header(const std::filesystem::path
     return container.value().sync();
 }
 
-} // namespace sv::test
+} 

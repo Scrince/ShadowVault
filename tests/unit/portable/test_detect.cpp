@@ -17,7 +17,7 @@ sv::platform::PlatformContext make_ctx(const std::filesystem::path& exe_dir) {
     return ctx;
 }
 
-} // namespace
+} 
 
 TEST_CASE("P-02 detect_portable_mode from shadowvault.ini", "[unit][portable][p02]") {
     const auto base = std::filesystem::temp_directory_path() / "sv_portable_detect";

@@ -11,4 +11,4 @@ namespace sv::container {
 [[nodiscard]] Result<void> validate_superblock(const Superblock& sb) noexcept;
 [[nodiscard]] std::uint32_t compute_superblock_crc(Span<const std::uint8_t> encoded_without_crc) noexcept;
 
-} // namespace sv::container
+} 

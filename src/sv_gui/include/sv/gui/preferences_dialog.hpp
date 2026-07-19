@@ -11,4 +11,4 @@ public:
     explicit PreferencesDialog(QWidget* parent = nullptr);
 };
 
-} // namespace sv::gui
+} 

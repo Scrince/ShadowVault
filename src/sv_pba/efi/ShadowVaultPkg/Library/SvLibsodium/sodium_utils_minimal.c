@@ -1,8 +1,4 @@
-/** @file
-  Minimal utils subset for UEFI libsodium (avoids desktop utils.c).
 
-  Copyright (c) 2026 ShadowVault contributors. SPDX-License-Identifier: MIT
-**/
 
 #include <stddef.h>
 #include <stdint.h>

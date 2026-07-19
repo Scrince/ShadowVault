@@ -28,7 +28,7 @@ sv::vault::CredentialMaterial cred_with_keyfile(const std::filesystem::path& key
     return cred;
 }
 
-} // namespace
+} 
 
 TEST_CASE("K-01 single keyfile unlock", "[integration][keyfile][k01]") {
     REQUIRE(sv::crypto::KdfEngine::is_available());

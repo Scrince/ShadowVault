@@ -19,4 +19,4 @@ class VaultEngine;
     const CredentialMaterial& hidden_cred,
     std::uint64_t hidden_max_size) noexcept;
 
-} // namespace sv::vault
+} 

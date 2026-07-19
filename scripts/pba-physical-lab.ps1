@@ -1,18 +1,5 @@
-#Requires -Version 5.1
-#Requires -RunAsAdministrator
-<#
-.SYNOPSIS
-  Stage ShadowVault PBA on a physical USB ESP (FAT32) for UEFI laptop boot (P1-01).
 
-.PARAMETER UsbDrive
-  Drive letter of the USB ESP (e.g. E:). Must be FAT32 with EFI partition.
 
-.PARAMETER EfiPath
-  Path to ShadowVaultBoot.efi (LabUnlock build recommended).
-
-.EXAMPLE
-  .\pba-physical-lab.ps1 -UsbDrive E -EfiPath C:\edk2\Build\ShadowVaultPkg\RELEASE_VS2022\X64\ShadowVaultBoot.efi
-#>
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]

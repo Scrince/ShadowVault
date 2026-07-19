@@ -13,7 +13,7 @@ std::string path_to_string(const std::filesystem::path& path) {
     return path.string();
 }
 
-} // namespace
+} 
 
 Result<std::filesystem::path> executable_directory() {
     return detail::query_executable_directory();
@@ -49,7 +49,7 @@ Result<std::filesystem::path> normalize_path(std::filesystem::path path) {
     if (path.has_relative_path()) {
         const auto filename = path.filename().string();
         if (!filename.empty() && filename != "." && filename != "..") {
-            // Keep lexical form; avoid canonicalize failures on missing paths.
+            
             return Result<std::filesystem::path>::ok(std::move(path));
         }
     }
@@ -134,4 +134,4 @@ std::uintmax_t count_regular_files(const std::filesystem::path& directory) {
     return count;
 }
 
-} // namespace sv::platform
+} 

@@ -1,12 +1,5 @@
-#Requires -Version 5.1
-<#
-.SYNOPSIS
-  Sign ShadowVault release artifacts with the project PGP key.
 
-.DESCRIPTION
-  Creates detached ASCII-armored signatures (.asc) beside release binaries and
-  writes docs/SHA256SUMS plus docs/SHA256SUMS.asc.
-#>
+
 [CmdletBinding()]
 param(
     [string] $SourceRoot = 'T:\ShadowVault',

@@ -1,4 +1,4 @@
-# bash completion for Shadow Vault CLI (svcli)
+
 _svcli_completions()
 {
     local cur prev opts

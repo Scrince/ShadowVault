@@ -24,7 +24,7 @@ constexpr std::uint64_t kMaxManifestSize = 128ULL * 1024 * 1024;
     return scaled;
 }
 
-} // namespace
+} 
 
 std::uint64_t tail_superblock_offset(const std::uint64_t container_size) noexcept {
     return container_size - SVLT_SUPERBLOCK_SIZE;
@@ -93,4 +93,4 @@ bool validate_layout(const Superblock& sb) noexcept {
     return true;
 }
 
-} // namespace sv::container
+} 

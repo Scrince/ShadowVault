@@ -25,7 +25,7 @@ Result<std::array<std::uint8_t, 32>> map_fs_status(
     }
 }
 
-} // namespace
+} 
 
 Result<std::array<std::uint8_t, 32>> unlock_primary_header(const PbaUnlockRequest& request) noexcept {
     const auto view = inspect_header_sector(request.primary_header_sector);
@@ -58,4 +58,4 @@ Result<std::array<std::uint8_t, 32>> unlock_system_header(
         "unlock_system_header requires superblock; use unlock_primary_header");
 }
 
-} // namespace sv::pba
+} 

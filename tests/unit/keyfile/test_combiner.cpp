@@ -17,7 +17,7 @@ sv::keyfile::KeyfileHash make_hash(const std::uint8_t byte) {
     return hash;
 }
 
-} // namespace
+} 
 
 TEST_CASE("K-02 keyfile hash order changes kdf secret", "[unit][keyfile][k02]") {
     const auto hash_a = make_hash(0x11);

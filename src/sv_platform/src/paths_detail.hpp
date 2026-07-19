@@ -11,4 +11,4 @@ namespace sv::platform::detail {
 [[nodiscard]] Result<std::filesystem::path> query_temp_directory();
 [[nodiscard]] Result<bool> query_is_removable_drive(const std::filesystem::path& path);
 
-} // namespace sv::platform::detail
+} 

@@ -24,7 +24,7 @@ Result<void> io_error(const std::string& message) {
     return Result<void>::err(ErrorCode::IoError, message);
 }
 
-} // namespace
+} 
 
 ContainerFileStore::ContainerFileStore(
     const platform::NativeFileHandle handle,
@@ -308,4 +308,4 @@ Result<void> ContainerFileStore::write_header_sector(
     return write_region(offset, as_bytes(encoded));
 }
 
-} // namespace sv::container
+} 

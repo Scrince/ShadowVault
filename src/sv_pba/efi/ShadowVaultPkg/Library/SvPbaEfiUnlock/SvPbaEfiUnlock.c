@@ -1,8 +1,4 @@
-/** @file
-  Load lab header/superblock from ESP and call sv_pba_unlock_primary_header.
 
-  Copyright (c) 2026 ShadowVault contributors. SPDX-License-Identifier: MIT
-**/
 
 #include <Uefi.h>
 #include <Library/BaseLib.h>

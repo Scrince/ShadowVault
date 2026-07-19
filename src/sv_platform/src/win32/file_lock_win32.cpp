@@ -65,6 +65,6 @@ Result<std::unique_ptr<FileLockState>> open_exclusive_lock(
     return Result<std::unique_ptr<FileLockState>>::ok(std::move(state));
 }
 
-} // namespace sv::platform::detail
+} 
 
 #endif

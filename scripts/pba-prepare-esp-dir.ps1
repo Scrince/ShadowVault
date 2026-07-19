@@ -1,11 +1,5 @@
-#Requires -Version 5.1
-<#
-.SYNOPSIS
-  Populate a FAT-ready directory tree for QEMU -drive file=fat:rw:...
 
-.EXAMPLE
-  .\pba-prepare-esp-dir.ps1 -EfiPath C:\edk2\Build\ShadowVaultPkg\RELEASE_VS2022\X64\ShadowVaultBoot.efi -OutputDir C:\Temp\shadowvault-pba-esp
-#>
+
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]

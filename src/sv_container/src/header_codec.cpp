@@ -15,7 +15,7 @@ void write_array(std::uint8_t* out, std::size_t offset, Span<const std::uint8_t>
     std::memcpy(out + offset, bytes.data(), bytes.size());
 }
 
-} // namespace
+} 
 
 Result<std::array<std::uint8_t, SVLT_AAD_SIZE>> build_header_aad(
     const Superblock& sb,
@@ -225,4 +225,4 @@ Result<HeaderPayload> open_header_sector(
     return decode_header_payload(plaintext);
 }
 
-} // namespace sv::container
+} 

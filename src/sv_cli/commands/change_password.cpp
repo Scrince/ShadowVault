@@ -66,4 +66,4 @@ int change_password_command(CliContext& ctx, const std::vector<std::string>& arg
     return output.success("password changed");
 }
 
-} // namespace sv::cli
+} 

@@ -45,4 +45,4 @@ private:
     std::vector<std::unique_ptr<UnlockedVault>> sessions_;
 };
 
-} // namespace sv::vault
+} 

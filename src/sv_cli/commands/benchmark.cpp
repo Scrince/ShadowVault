@@ -59,4 +59,4 @@ int benchmark_command(CliContext& ctx, const std::vector<std::string>& args) {
     return output.success("KDF benchmark (" + profile + "): " + std::to_string(ms) + " ms");
 }
 
-} // namespace sv::cli
+} 

@@ -29,7 +29,7 @@ sv::container::Superblock make_valid_superblock() {
     return sb;
 }
 
-} // namespace
+} 
 
 TEST_CASE("H-04 superblock encodes to 512 bytes with valid CRC", "[unit][container][h04]") {
     const auto sb = make_valid_superblock();

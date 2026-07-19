@@ -1,21 +1,5 @@
-#Requires -Version 5.1
-<#
-.SYNOPSIS
-  Build ShadowVaultBoot.efi with EDK2 (VS2022 / X64).
 
-.PARAMETER Mode
-  Stub — passphrase stub only (no crypto).
-  LabUnlock — freestanding unlock + vendored SvLibsodium (default; requires LIBSODIUM_ROOT).
 
-.EXAMPLE
-  $env:EDK2_ROOT = 'C:\edk2'
-  .\build-edk2.ps1 -Edk2Root $env:EDK2_ROOT
-
-.EXAMPLE
-  $env:LIBSODIUM_ROOT = 'C:\Temp\libsodium-src'
-  $env:LIBSODIUM_INCLUDE = "$env:LIBSODIUM_ROOT\src\libsodium\include"
-  .\build-edk2.ps1 -Edk2Root $env:EDK2_ROOT -Mode LabUnlock
-#>
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]

@@ -26,7 +26,7 @@ sv::crypto::KdfParams fast_kdf_params() {
     return params;
 }
 
-} // namespace
+} 
 
 TEST_CASE("C-02 Argon2id known answer is deterministic", "[unit][crypto][c02]") {
     REQUIRE(sv::crypto::KdfEngine::is_available());

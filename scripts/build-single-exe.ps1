@@ -1,16 +1,5 @@
-#Requires -Version 5.1
-<#
-.SYNOPSIS
-  Build a single-file Shadow Vault executable for USB / traveler use.
 
-.DESCRIPTION
-  Produces one .exe with WinFsp and portable config embedded. On first run it
-  writes winfsp-x64.dll and shadowvault.ini beside the executable (hidden
-  .shadowvault\ for temp). Copy only ShadowVault.exe to your USB stick.
 
-.EXAMPLE
-  .\build-single-exe.ps1 -OutputDir D:\ShadowVault
-#>
 [CmdletBinding()]
 param(
     [string] $BuildDir = 'T:\ShadowVault\build-single',

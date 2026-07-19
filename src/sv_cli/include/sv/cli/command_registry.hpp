@@ -44,4 +44,4 @@ private:
 bool args_contain_help(const std::vector<std::string>& args);
 int run_not_implemented(CliContext& ctx, const std::string& command_name, const std::vector<std::string>& args);
 
-} // namespace sv::cli
+} 

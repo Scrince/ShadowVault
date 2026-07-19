@@ -39,7 +39,7 @@ void cleanup(const std::filesystem::path& path) {
     std::filesystem::remove(path, ec);
 }
 
-} // namespace
+} 
 
 TEST_CASE("HV-07 outer and hidden volumes use different VMK", "[unit][vault][hv07]") {
     REQUIRE(sv::crypto::KdfEngine::is_available());

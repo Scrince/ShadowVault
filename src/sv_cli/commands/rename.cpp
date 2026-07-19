@@ -32,4 +32,4 @@ int rename_command(CliContext& ctx, const std::vector<std::string>& args) {
     return output.success("renamed " + positional[0] + " -> " + positional[1]);
 }
 
-} // namespace sv::cli
+} 

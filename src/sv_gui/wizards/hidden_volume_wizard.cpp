@@ -85,7 +85,7 @@ private:
     QLineEdit* confirm_edit_{nullptr};
 };
 
-} // namespace
+} 
 
 HiddenVolumeWizard::HiddenVolumeWizard(
     VaultService& service,
@@ -113,4 +113,4 @@ bool HiddenVolumeWizard::understood() const {
     return field(QStringLiteral("understood")).toBool();
 }
 
-} // namespace sv::gui
+} 

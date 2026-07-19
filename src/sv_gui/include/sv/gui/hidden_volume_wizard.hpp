@@ -6,7 +6,7 @@ namespace sv::gui {
 
 class VaultService;
 
-/// Hidden volume creation wizard (S3).
+
 class HiddenVolumeWizard : public QWizard {
     Q_OBJECT
 
@@ -22,4 +22,4 @@ private:
     QString vault_path_;
 };
 
-} // namespace sv::gui
+} 

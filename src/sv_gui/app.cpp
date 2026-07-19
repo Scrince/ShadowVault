@@ -21,4 +21,4 @@ QString App::resolve_cli_path() {
     return QString::fromUtf8(kCliExecutable);
 }
 
-} // namespace sv::gui
+} 

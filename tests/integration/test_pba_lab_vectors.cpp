@@ -31,7 +31,7 @@ std::vector<std::uint8_t> read_file(const std::filesystem::path& path) {
         std::istreambuf_iterator<char>());
 }
 
-} // namespace
+} 
 
 TEST_CASE("P1-07 exported lab vectors unlock on host", "[integration][pba][p107]") {
     REQUIRE(sv::crypto::KdfEngine::is_available());

@@ -1,11 +1,5 @@
-#Requires -Version 5.1
-<#
-.SYNOPSIS
-  Export EFI/QEMU lab unlock vectors (header.bin + superblock.bin).
 
-.EXAMPLE
-  .\pba-export-lab-vectors.ps1 -OutputDir C:\Temp\shadowvault-pba-lab
-#>
+
 [CmdletBinding()]
 param(
     [string] $OutputDir = 'C:\Temp\shadowvault-pba-lab',

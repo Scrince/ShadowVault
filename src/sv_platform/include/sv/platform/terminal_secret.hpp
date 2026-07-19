@@ -7,7 +7,7 @@
 
 namespace sv::platform {
 
-/// Owns secret bytes and scrubs the backing buffer on destruction.
+
 class SecretString {
 public:
     SecretString() = default;
@@ -24,7 +24,7 @@ public:
     [[nodiscard]] bool empty() const noexcept;
     void clear();
 
-    /// Transfers ownership; caller must wipe the returned buffer when done.
+    
     [[nodiscard]] std::string release();
 
 private:
@@ -33,10 +33,9 @@ private:
     std::string data_;
 };
 
-/// Read a secret from the terminal with echo disabled.
-/// When confirm is true, prompts twice and requires a match.
+
 [[nodiscard]] Result<SecretString> read_secret(std::string_view prompt, bool confirm = false);
 
 void secure_wipe(std::string& value) noexcept;
 
-} // namespace sv::platform
+} 

@@ -20,7 +20,7 @@ constexpr std::array<std::uint8_t, 24> kNonce {
 
 constexpr char kPlaintext[] = "Shadow Vault AEAD known-answer vector";
 
-} // namespace
+} 
 
 TEST_CASE("C-01 AEAD encrypt/decrypt roundtrip", "[unit][crypto][c01]") {
     auto provider = sv::crypto::create_default_crypto_provider();

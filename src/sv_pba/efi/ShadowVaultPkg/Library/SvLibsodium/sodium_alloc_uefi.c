@@ -1,8 +1,4 @@
-/** @file
-  libsodium allocator hooks for UEFI (link when building SvLibsodium).
 
-  Copyright (c) 2026 ShadowVault contributors. SPDX-License-Identifier: MIT
-**/
 
 #include <Library/BaseMemoryLib.h>
 #include <Library/MemoryAllocationLib.h>

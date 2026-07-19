@@ -28,7 +28,7 @@ sv::container::Superblock make_layout_superblock() {
     return sb;
 }
 
-} // namespace
+} 
 
 TEST_CASE("H-03 primary and backup headers decrypt to identical payload", "[unit][container][h03]") {
     auto crypto = sv::crypto::create_default_crypto_provider();

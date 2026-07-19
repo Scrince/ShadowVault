@@ -1,8 +1,4 @@
-/** @file
-  Stub unlock implementation until freestanding sv_pba_core is linked.
 
-  Copyright (c) 2026 ShadowVault contributors. SPDX-License-Identifier: MIT
-**/
 
 #include <Uefi.h>
 #include <Library/BaseLib.h>
@@ -38,10 +34,8 @@ SvPbaEfiTryUnlock (
   IN CONST CHAR16  *PassphraseUtf16
   )
 {
-  //
-  // Lab scaffold: accept QEMU default test passphrase. Replaced by sv_pba_core
-  // unlock_primary_header once freestanding crypto is extracted.
-  //
+  
+  
   if (PassphraseEqualsAscii (PassphraseUtf16, "shadowvault-lab")) {
     return EFI_SUCCESS;
   }

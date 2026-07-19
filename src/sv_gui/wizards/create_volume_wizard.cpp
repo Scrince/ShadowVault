@@ -149,7 +149,7 @@ private:
     QLabel* summary_label_{nullptr};
 };
 
-} // namespace
+} 
 
 CreateVolumeWizard::CreateVolumeWizard(VaultService& service, QWidget* parent)
     : QWizard(parent)
@@ -181,4 +181,4 @@ bool CreateVolumeWizard::quick_format() const {
     return field(QStringLiteral("quickFormat")).toBool();
 }
 
-} // namespace sv::gui
+} 

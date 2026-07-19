@@ -1,8 +1,4 @@
-/** @file
-  Lab stand-in for Windows bootmgfw.efi — QEMU chain-load smoke target.
 
-  Copyright (c) 2026 ShadowVault contributors. SPDX-License-Identifier: MIT
-**/
 
 #include <Uefi.h>
 #include <Library/UefiLib.h>

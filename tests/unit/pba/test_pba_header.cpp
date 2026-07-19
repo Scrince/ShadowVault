@@ -51,7 +51,7 @@ sv::container::HeaderPayload sample_payload() {
     return payload;
 }
 
-} // namespace
+} 
 
 TEST_CASE("P1-00 inspect header sector magic", "[unit][pba][p100]") {
     std::array<std::uint8_t, sv::container::SVLT_HEADER_SIZE> sector {};

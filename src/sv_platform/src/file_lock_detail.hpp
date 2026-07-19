@@ -22,4 +22,4 @@ struct FileLockState {
 [[nodiscard]] Result<std::unique_ptr<FileLockState>> open_exclusive_lock(
     const std::filesystem::path& path);
 
-} // namespace sv::platform::detail
+} 

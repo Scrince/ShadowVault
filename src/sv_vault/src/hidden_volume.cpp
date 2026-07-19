@@ -30,7 +30,7 @@ void set_bitmap_state(std::vector<std::uint8_t>& bitmap, const std::uint64_t chu
     bitmap[byte_index] = static_cast<std::uint8_t>((bitmap[byte_index] & ~(0x3U << shift)) | ((state & 0x3U) << shift));
 }
 
-} // namespace
+} 
 
 bool hidden_configured_from_header(const container::HeaderPayload& header) noexcept {
     return header.hidden_max_size > 0;
@@ -283,4 +283,4 @@ Result<void> create_hidden_volume(
     return engine.commit_manifest(outer_session);
 }
 
-} // namespace sv::vault
+} 

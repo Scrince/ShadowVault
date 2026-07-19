@@ -16,7 +16,7 @@ std::vector<char*> argv_from_strings(std::vector<std::string>& storage) {
     return argv;
 }
 
-} // namespace
+} 
 
 TEST_CASE("parse_cli_arguments accepts --config=value", "[cli][args]") {
     std::vector<std::string> args_storage = {"svcli", "--config=test.ini", "portable-status"};

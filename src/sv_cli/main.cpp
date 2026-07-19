@@ -48,7 +48,7 @@ sv::cli::CliContext build_context(const sv::cli::GlobalOptions& globals, const c
     return ctx;
 }
 
-} // namespace
+} 
 
 int main(int argc, char** argv) {
     sv::platform::bootstrap_embedded_runtime();

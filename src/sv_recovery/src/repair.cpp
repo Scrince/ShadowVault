@@ -17,7 +17,7 @@ namespace {
     return primary.is_ok();
 }
 
-} // namespace
+} 
 
 Result<void> repair_from_backup_header(
     container::ContainerFileStore& container,
@@ -109,4 +109,4 @@ Result<void> repair_vault(
     return Result<void>::ok();
 }
 
-} // namespace sv::recovery
+} 

@@ -39,4 +39,4 @@ Result<void> FileOps::mkdir(UnlockedVault& session, const std::filesystem::path&
     return engine_.mkdir(session, vault_dir);
 }
 
-} // namespace sv::vault
+} 

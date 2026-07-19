@@ -128,4 +128,4 @@ int create_command(CliContext& ctx, const std::vector<std::string>& args) {
     return output.success("created vault: " + path.generic_string());
 }
 
-} // namespace sv::cli
+} 

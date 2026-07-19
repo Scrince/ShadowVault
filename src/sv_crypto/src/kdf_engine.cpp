@@ -41,7 +41,7 @@ normalize_argon2id_salt(const Span<const std::uint8_t> salt) noexcept {
     return Result<std::array<std::uint8_t, crypto_pwhash_argon2id_SALTBYTES>>::ok(normalized);
 }
 
-} // namespace
+} 
 
 bool KdfEngine::is_available() noexcept {
     return detail::ensure_sodium_initialized();
@@ -64,14 +64,32 @@ Result<void> KdfEngine::argon2id(
         return Result<void>::err(normalized_salt.error(), normalized_salt.message());
     }
 
+    
+    constexpr std::uint32_t kMaxMemoryKiB = 1048576; 
+    constexpr std::uint32_t kMaxTimeCost = 10;
+    std::uint32_t m_kib = params.m_cost_kib;
+    std::uint32_t t_cost = params.t_cost;
+    if (m_kib < 8192U) {
+        m_kib = 8192U;
+    }
+    if (m_kib > kMaxMemoryKiB) {
+        m_kib = kMaxMemoryKiB;
+    }
+    if (t_cost < 1U) {
+        t_cost = 1U;
+    }
+    if (t_cost > kMaxTimeCost) {
+        t_cost = kMaxTimeCost;
+    }
+
     if (crypto_pwhash_argon2id(
             derived_key_out.data(),
             static_cast<unsigned long long>(derived_key_out.size()),
             reinterpret_cast<const char*>(password.data()),
             static_cast<unsigned long long>(password.size()),
             normalized_salt.value().data(),
-            static_cast<unsigned long long>(params.t_cost),
-            static_cast<std::size_t>(params.m_cost_kib) * 1024U,
+            static_cast<unsigned long long>(t_cost),
+            static_cast<std::size_t>(m_kib) * 1024U,
             crypto_pwhash_argon2id_ALG_ARGON2ID13)
         != 0) {
         return Result<void>::err(ErrorCode::PlatformError, "crypto_pwhash_argon2id failed");
@@ -79,4 +97,4 @@ Result<void> KdfEngine::argon2id(
     return Result<void>::ok();
 }
 
-} // namespace sv::crypto
+} 

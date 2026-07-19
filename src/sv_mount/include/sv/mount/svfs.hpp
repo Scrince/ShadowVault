@@ -22,7 +22,7 @@ struct SvFsAttr {
     std::uint64_t mtime_unix = 0;
 };
 
-/// Maps POSIX/FUSE paths to VaultEngine file operations (primary M9 adapter).
+
 class SvFs {
 public:
     using IoTouchCallback = std::function<void()>;
@@ -76,4 +76,4 @@ private:
 [[nodiscard]] int result_to_errno(const Result<void>& result) noexcept;
 [[nodiscard]] int result_to_errno(const Result<std::size_t>& result) noexcept;
 
-} // namespace sv::mount
+} 

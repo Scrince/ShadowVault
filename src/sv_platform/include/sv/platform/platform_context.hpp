@@ -19,4 +19,4 @@ PlatformContext create_platform_context(
     bool cli_flag_no_host_traces = false,
     const std::optional<std::filesystem::path>& config_override = std::nullopt);
 
-} // namespace sv::platform
+} 

@@ -102,7 +102,7 @@ bool parse_global_option(
     return false;
 }
 
-} // namespace
+} 
 
 std::optional<ParsedInvocation> parse_cli_arguments(int argc, char** argv) {
     ParsedInvocation parsed;
@@ -155,4 +155,4 @@ std::optional<ParsedInvocation> parse_cli_arguments(int argc, char** argv) {
     return parsed;
 }
 
-} // namespace sv::cli
+} 

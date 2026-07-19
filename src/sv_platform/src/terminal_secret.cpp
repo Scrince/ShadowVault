@@ -20,7 +20,7 @@ namespace {
 
 constexpr auto kSecureWipePattern = static_cast<unsigned char>(0xFF);
 
-} // namespace
+} 
 
 void secure_wipe(std::string& value) noexcept {
     if (!value.empty()) {
@@ -120,4 +120,4 @@ Result<SecretString> read_secret(const std::string_view prompt, const bool confi
     return Result<SecretString>::ok(SecretString(std::move(first.value())));
 }
 
-} // namespace sv::platform
+} 

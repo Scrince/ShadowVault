@@ -23,4 +23,4 @@ struct VerifyReport {
     const UnlockedVault& session,
     bool deep = false) noexcept;
 
-} // namespace sv::vault
+} 

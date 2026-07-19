@@ -34,7 +34,7 @@ constexpr std::size_t kRecordPlainHeaderSize = 16;
     return (value + alignment - 1) / alignment * alignment;
 }
 
-} // namespace
+} 
 
 Journal::Journal(
     container::ContainerFileStore& container,
@@ -122,6 +122,9 @@ Result<std::uint64_t> Journal::append_record(
 
     std::vector<std::uint8_t> encrypted(plaintext.size() + crypto::kAeadTagSize);
     const auto key = crypto::hkdf_journal_key(vmk_, sequence);
+    if (!key.is_ok()) {
+        return Result<std::uint64_t>::err(key.error(), key.message());
+    }
     crypto::AeadNonce nonce {};
     const auto derived_nonce = derive_journal_nonce(sequence);
     std::memcpy(nonce.bytes.data(), derived_nonce.data(), derived_nonce.size());
@@ -129,7 +132,7 @@ Result<std::uint64_t> Journal::append_record(
     const auto enc = crypto_.aead_encrypt(
         plaintext,
         Span<const std::uint8_t> {},
-        key,
+        key.value(),
         nonce,
         Span<std::uint8_t>(encrypted.data(), plaintext.size()),
         Span<std::uint8_t>(encrypted.data() + plaintext.size(), crypto::kAeadTagSize));
@@ -139,6 +142,14 @@ Result<std::uint64_t> Journal::append_record(
 
     const std::uint32_t record_len = static_cast<std::uint32_t>(4 + encrypted.size());
     const std::uint64_t padded_len = align_up(record_len, 8);
+    
+    
+    if (kJournalRecordsBase + jsb.write_pointer + padded_len > journal_size_
+        && jsb.write_pointer == jsb.first_record_offset
+        && jsb.write_pointer != 0) {
+        jsb.write_pointer = 0;
+        jsb.first_record_offset = 0;
+    }
     if (kJournalRecordsBase + jsb.write_pointer + padded_len > journal_size_) {
         return Result<std::uint64_t>::err(ErrorCode::IoError, "journal region full");
     }
@@ -219,7 +230,9 @@ Result<void> Journal::append_commit(
     }
     JournalSuperblock updated = jsb.value();
     updated.last_committed_seq = seq.value();
-    updated.first_record_offset = updated.write_pointer;
+    
+    updated.write_pointer = 0;
+    updated.first_record_offset = 0;
     const auto persist = write_superblock(updated);
     if (!persist.is_ok()) {
         return persist;
@@ -250,7 +263,9 @@ Result<void> Journal::append_abort(container::Superblock* superblock) noexcept {
         return Result<void>::err(jsb.error(), jsb.message());
     }
     JournalSuperblock updated = jsb.value();
-    updated.first_record_offset = updated.write_pointer;
+    
+    updated.write_pointer = 0;
+    updated.first_record_offset = 0;
     const auto persist = write_superblock(updated);
     if (!persist.is_ok()) {
         return persist;
@@ -310,13 +325,16 @@ Result<void> Journal::replay_if_dirty(container::Superblock* superblock, const b
         JournalOpType op_type = JournalOpType::Abort;
         for (std::uint64_t seq = jsb.value().last_committed_seq + 1; seq <= jsb.value().last_committed_seq + 64; ++seq) {
             const auto key = crypto::hkdf_journal_key(vmk_, seq);
+            if (!key.is_ok()) {
+                continue;
+            }
             crypto::AeadNonce nonce {};
             const auto derived_nonce = derive_journal_nonce(seq);
             std::memcpy(nonce.bytes.data(), derived_nonce.data(), derived_nonce.size());
             const auto dec = crypto_.aead_decrypt(
                 ciphertext,
                 Span<const std::uint8_t> {},
-                key,
+                key.value(),
                 nonce,
                 tag,
                 plaintext);
@@ -358,4 +376,4 @@ Result<void> Journal::replay_if_dirty(container::Superblock* superblock, const b
     return write_container_superblock_flags(*superblock);
 }
 
-} // namespace sv::recovery
+} 

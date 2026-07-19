@@ -29,7 +29,7 @@ enum class ErrorCode : std::uint32_t {
     UsageError,
 };
 
-/// Maps domain errors to CLI exit codes (docs/cli-spec.md).
+
 constexpr int exit_code_for(ErrorCode code) noexcept {
     switch (code) {
     case ErrorCode::Ok:
@@ -173,7 +173,7 @@ private:
     std::optional<Error> error_;
 };
 
-} // namespace detail
+} 
 
 template<typename T>
 class Result {
@@ -253,4 +253,4 @@ private:
     detail::ResultStorage<void> storage_{};
 };
 
-} // namespace sv
+} 

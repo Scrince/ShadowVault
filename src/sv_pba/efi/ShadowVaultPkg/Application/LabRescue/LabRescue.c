@@ -1,8 +1,4 @@
-/** @file
-  Lab stand-in for ShadowVaultRescue.efi on rescue USB media.
 
-  Copyright (c) 2026 ShadowVault contributors. SPDX-License-Identifier: GPL-3.0-or-later
-**/
 
 #include <Uefi.h>
 #include <Library/UefiLib.h>

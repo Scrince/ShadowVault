@@ -22,7 +22,7 @@ std::filesystem::path temp_container_path() {
            + ".bin");
 }
 
-} // namespace
+} 
 
 TEST_CASE("chunk AEAD binds full manifest generation", "[unit][vault][chunk]") {
     auto crypto = sv::crypto::create_default_crypto_provider();

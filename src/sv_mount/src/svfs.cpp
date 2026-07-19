@@ -11,7 +11,7 @@ namespace {
 
 constexpr std::uint64_t kRootMtime = 1;
 
-} // namespace
+} 
 
 int result_to_errno(const Result<void>& result) noexcept {
     if (result.is_ok()) {
@@ -219,7 +219,7 @@ Result<std::size_t> SvFs::write(
     std::memcpy(it->second.data.data() + offset, buffer.data(), buffer.size());
     it->second.dirty = true;
 
-    // Write-through so concurrent VaultEngine readers (and close-before-flush races) see data.
+    
     const auto put = engine_.put(
         session_,
         it->second.vault_path,
@@ -318,4 +318,4 @@ Result<void> SvFs::truncate(const std::filesystem::path& fuse_path, const std::u
         true);
 }
 
-} // namespace sv::mount
+} 

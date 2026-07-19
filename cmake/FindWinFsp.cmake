@@ -1,4 +1,4 @@
-# Locate WinFsp headers and import libraries for native + FUSE shims.
+
 
 find_path(WINFSP_INCLUDE_DIR
     NAMES winfsp/winfsp.h fuse3/fuse.h

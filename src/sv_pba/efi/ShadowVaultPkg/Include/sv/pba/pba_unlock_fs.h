@@ -1,8 +1,5 @@
 #pragma once
 
-/**
- * Freestanding C unlock API — host-tested with libsodium; EFI links same sources.
- */
 
 #include <stddef.h>
 #include <stdint.h>

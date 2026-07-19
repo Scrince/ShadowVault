@@ -19,6 +19,7 @@ else()
         src/posix/paths_posix.cpp
         src/posix/file_lock_posix.cpp
         src/posix/terminal_secret_posix.cpp
+        src/posix/embedded_runtime_posix.cpp
     )
 endif()
 

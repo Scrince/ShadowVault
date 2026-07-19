@@ -15,4 +15,4 @@ Result<void> secure_random_bytes(Span<std::uint8_t> out) noexcept {
     return Result<void>::ok();
 }
 
-} // namespace sv::crypto
+} 

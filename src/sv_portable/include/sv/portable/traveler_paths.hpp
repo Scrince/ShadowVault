@@ -9,4 +9,4 @@ platform::ResolvedPaths resolve_paths(
     const platform::PlatformContext& ctx,
     const PortableConfig& config);
 
-} // namespace sv::portable
+} 

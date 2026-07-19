@@ -6,7 +6,7 @@ namespace sv::gui {
 
 class VaultService;
 
-/// Five-step create volume wizard (S2).
+
 class CreateVolumeWizard : public QWizard {
     Q_OBJECT
 
@@ -23,4 +23,4 @@ private:
     VaultService& service_;
 };
 
-} // namespace sv::gui
+} 

@@ -11,7 +11,7 @@
 
 namespace sv::mount {
 
-/// Exposes decrypted linear block address space backed by VaultEngine chunk_store.
+
 class VirtualBlockDevice {
 public:
     explicit VirtualBlockDevice(std::shared_ptr<vault::ChunkStore> chunk_store);
@@ -29,4 +29,4 @@ private:
     std::shared_ptr<vault::ChunkStore> chunk_store_;
 };
 
-} // namespace sv::mount
+} 

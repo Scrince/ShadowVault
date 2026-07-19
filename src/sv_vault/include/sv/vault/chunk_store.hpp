@@ -67,4 +67,4 @@ private:
     std::uint32_t chunk_size_ = 0;
 };
 
-} // namespace sv::vault
+} 

@@ -96,7 +96,7 @@ Result<std::string> read_console_no_echo() {
                 }
                 continue;
             }
-            if (ch == 0x03) { // Ctrl+C
+            if (ch == 0x03) { 
                 SetConsoleMode(input, original_mode);
                 return Result<std::string>::err(ErrorCode::PlatformError, "input interrupted");
             }
@@ -129,7 +129,7 @@ Result<std::string> read_getch_no_echo() {
     return Result<std::string>::ok(std::move(value));
 }
 
-} // namespace
+} 
 
 Result<std::string> read_line_no_echo() {
     const HANDLE input = GetStdHandle(STD_INPUT_HANDLE);
@@ -143,6 +143,6 @@ Result<std::string> read_line_no_echo() {
     return read_getch_no_echo();
 }
 
-} // namespace sv::platform::detail
+} 
 
 #endif

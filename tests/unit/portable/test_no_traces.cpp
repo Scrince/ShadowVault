@@ -15,7 +15,7 @@ sv::platform::PlatformContext portable_ctx() {
     return ctx;
 }
 
-} // namespace
+} 
 
 TEST_CASE("P-03 no_host_traces disables recent volumes and log_to_file", "[unit][portable][p03]") {
     const auto config = sv::portable::load_config(portable_ctx(), std::nullopt);

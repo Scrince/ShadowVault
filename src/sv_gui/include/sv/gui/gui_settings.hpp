@@ -5,7 +5,7 @@
 
 namespace sv::gui {
 
-/// Persistent GUI preferences (QSettings + portable flags).
+
 class GuiSettings {
 public:
     static GuiSettings& instance();
@@ -33,4 +33,4 @@ private:
     QStringList recent_vaults_;
 };
 
-} // namespace sv::gui
+} 

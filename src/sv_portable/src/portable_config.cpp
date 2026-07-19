@@ -137,7 +137,7 @@ PortableConfig config_from_ini(const IniTable& table, const PortableConfig& defa
     return config;
 }
 
-} // namespace
+} 
 
 bool detect_portable_mode(const platform::PlatformContext& ctx) {
     if (ctx.cli_flag_portable) {
@@ -267,4 +267,4 @@ PortableStatus portable_status(const platform::PlatformContext& ctx) {
     return status;
 }
 
-} // namespace sv::portable
+} 

@@ -13,7 +13,7 @@ std::filesystem::path make_relative_path(
     return exe_dir / configured;
 }
 
-} // namespace
+} 
 
 platform::ResolvedPaths resolve_paths(
     const platform::PlatformContext& ctx,
@@ -38,4 +38,4 @@ platform::ResolvedPaths resolve_paths(
     return paths;
 }
 
-} // namespace sv::portable
+} 

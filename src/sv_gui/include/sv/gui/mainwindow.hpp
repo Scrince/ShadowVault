@@ -12,7 +12,7 @@ class QTextEdit;
 
 namespace sv::gui {
 
-/// Main window with volume list, menus, and direct vault engine operations (S1).
+
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
@@ -51,4 +51,4 @@ private:
     QAction* dismount_action_{nullptr};
 };
 
-} // namespace sv::gui
+} 

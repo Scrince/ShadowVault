@@ -25,6 +25,14 @@
 #define SV_PBA_FS_DEFAULT_T_COST        3U
 #define SV_PBA_FS_DEFAULT_P_COST        1U
 
+/* Match host-side outer KDF clamps (key_manager.cpp). */
+#define SV_PBA_FS_MIN_M_COST_KIB        8192U
+#define SV_PBA_FS_MAX_M_COST_KIB        1048576U
+#define SV_PBA_FS_MIN_T_COST            1U
+#define SV_PBA_FS_MAX_T_COST            10U
+#define SV_PBA_FS_MIN_P_COST            1U
+#define SV_PBA_FS_MAX_P_COST            4U
+
 enum sv_pba_status;
 
 struct sv_pba_fs_kdf_params {

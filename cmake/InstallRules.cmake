@@ -1,4 +1,4 @@
-# Shadow Vault — CMake install rules for production packaging.
+
 
 include(GNUInstallDirs)
 

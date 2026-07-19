@@ -112,7 +112,7 @@ public:
     }
 };
 
-} // namespace
+} 
 
 std::unique_ptr<CryptoProvider> create_default_crypto_provider() noexcept {
     try {
@@ -125,4 +125,4 @@ std::unique_ptr<CryptoProvider> create_default_crypto_provider() noexcept {
     }
 }
 
-} // namespace sv::crypto
+} 

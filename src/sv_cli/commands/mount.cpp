@@ -95,7 +95,7 @@ void wait_for_mount_shutdown(mount::MountManager& manager, const std::filesystem
 
 #endif
 
-} // namespace
+} 
 
 int mount_command(CliContext& ctx, const std::vector<std::string>& args) {
     Output out(ctx.globals);
@@ -204,4 +204,4 @@ int mount_command(CliContext& ctx, const std::vector<std::string>& args) {
 #endif
 }
 
-} // namespace sv::cli
+} 

@@ -1,8 +1,5 @@
-#Requires -Version 5.1
-<#
-.SYNOPSIS
-  End-to-end smoke test for Shadow Vault CLI (non-interactive).
-#>
+
+
 [CmdletBinding()]
 param(
     [string] $Svcli = 'C:\Temp\shadowvault-build\src\sv_cli\Release\svcli.exe',

@@ -32,4 +32,4 @@ int mkdir_command(CliContext& ctx, const std::vector<std::string>& args) {
     return output.success("created directory " + positional[0]);
 }
 
-} // namespace sv::cli
+} 

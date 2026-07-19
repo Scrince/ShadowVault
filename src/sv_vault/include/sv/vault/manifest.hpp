@@ -70,4 +70,4 @@ constexpr std::size_t kManifestPageSlotSize = kManifestMaxPagePlaintext + 16;
 
 [[nodiscard]] Result<std::pair<ManifestPage, ManifestPage>> manifest_to_pages(const ManifestState& state) noexcept;
 
-} // namespace sv::vault
+} 

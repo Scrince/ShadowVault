@@ -20,7 +20,7 @@ struct VaultListEntry {
     QString type;
 };
 
-/// Direct vault engine access for svgui (no subprocess).
+
 class VaultService {
 public:
     VaultService();
@@ -68,4 +68,4 @@ private:
     QStringList known_paths_;
 };
 
-} // namespace sv::gui
+} 

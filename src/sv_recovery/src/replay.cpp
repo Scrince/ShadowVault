@@ -6,4 +6,4 @@ Result<void> replay_journal(Journal& journal, container::Superblock& superblock)
     return journal.replay_if_dirty(&superblock);
 }
 
-} // namespace sv::recovery
+} 

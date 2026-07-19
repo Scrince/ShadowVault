@@ -35,7 +35,7 @@ std::filesystem::path temp_mount_dir(const char* prefix) {
 }
 
 std::filesystem::path pick_mount_point() {
-    // WinFsp FUSE is most reliable with a drive-letter mount on Windows.
+    
     for (char letter = 'Y'; letter >= 'M'; --letter) {
         const auto candidate = std::filesystem::path(std::string(1, letter) + ":");
         std::error_code ec;
@@ -54,7 +54,7 @@ void cleanup_mount_dir(const std::filesystem::path& dir) {
     std::filesystem::remove_all(dir, ec);
 }
 
-} // namespace
+} 
 
 TEST_CASE("MT-01 mount roundtrip create file via OS", "[integration][mount][mt01]") {
     REQUIRE(sv::crypto::KdfEngine::is_available());

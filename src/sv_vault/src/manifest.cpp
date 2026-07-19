@@ -47,7 +47,7 @@ constexpr std::array<std::uint8_t, 4> kPageMagic = {'S', 'V', 'M', 'P'};
     return crypto_generichash_blake2b(out.data(), out.size(), per_page.data(), per_page.size(), nullptr, 0) == 0;
 }
 
-} // namespace
+} 
 
 Result<void> encode_manifest_page_header(const ManifestPageHeader& header, Span<std::uint8_t> out) noexcept {
     if (out.size() < kManifestPageHeaderSize) {
@@ -241,11 +241,14 @@ Result<void> encrypt_manifest_page(
     }
 
     const auto key = crypto::hkdf_manifest_page_key(vmk, page.header.generation, page.header.page_index);
+    if (!key.is_ok()) {
+        return Result<void>::err(key.error(), key.message());
+    }
     crypto::AeadNonce nonce {};
     const auto derived_nonce = derive_manifest_nonce(page.header.generation, page.header.page_index);
     std::memcpy(nonce.bytes.data(), derived_nonce.data(), derived_nonce.size());
 
-    return crypto.aead_encrypt(plaintext, Span<const std::uint8_t>{}, key, nonce, ciphertext_out, tag_out);
+    return crypto.aead_encrypt(plaintext, Span<const std::uint8_t>{}, key.value(), nonce, ciphertext_out, tag_out);
 }
 
 Result<ManifestPage> decrypt_manifest_page(
@@ -264,10 +267,13 @@ Result<ManifestPage> decrypt_manifest_page(
 
     std::vector<std::uint8_t> plaintext(ciphertext.size());
     const auto key = crypto::hkdf_manifest_page_key(vmk, generation, page_index);
+    if (!key.is_ok()) {
+        return Result<ManifestPage>::err(key.error(), key.message());
+    }
     crypto::AeadNonce nonce {};
     const auto derived_nonce = derive_manifest_nonce(generation, page_index);
     std::memcpy(nonce.bytes.data(), derived_nonce.data(), derived_nonce.size());
-    const auto dec = crypto.aead_decrypt(ciphertext, Span<const std::uint8_t>{}, key, nonce, tag, plaintext);
+    const auto dec = crypto.aead_decrypt(ciphertext, Span<const std::uint8_t>{}, key.value(), nonce, tag, plaintext);
     if (!dec.is_ok()) {
         return Result<ManifestPage>::err(ErrorCode::ManifestDecryptFailed, dec.message());
     }
@@ -304,4 +310,4 @@ Result<ManifestPage> decrypt_manifest_page(
     return Result<ManifestPage>::ok(std::move(page));
 }
 
-} // namespace sv::vault
+} 

@@ -1,8 +1,4 @@
-/** @file
-  Boot-services-only UEFI variable handoff for VMK (Phase 1 spike).
 
-  Copyright (c) 2026 ShadowVault contributors. SPDX-License-Identifier: GPL-3.0-or-later
-**/
 
 #include <sv_pba_handoff.h>
 

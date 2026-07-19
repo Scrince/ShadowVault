@@ -27,7 +27,7 @@ Result<std::filesystem::path> platform_error(const char* context) {
         std::string(context) + " (Win32 error " + std::to_string(error) + ")");
 }
 
-} // namespace
+} 
 
 Result<std::filesystem::path> query_executable_directory() {
     std::vector<wchar_t> buffer(MAX_PATH, L'\0');
@@ -90,6 +90,6 @@ Result<bool> query_is_removable_drive(const std::filesystem::path& path) {
     return Result<bool>::ok(removable);
 }
 
-} // namespace sv::platform::detail
+} 
 
 #endif

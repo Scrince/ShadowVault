@@ -134,4 +134,4 @@ int remove_keyfile_command(CliContext& ctx, const std::vector<std::string>& args
     return output.success("keyfile removed");
 }
 
-} // namespace sv::cli
+} 

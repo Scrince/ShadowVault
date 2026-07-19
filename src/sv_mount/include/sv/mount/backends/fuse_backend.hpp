@@ -4,7 +4,7 @@
 
 namespace sv::mount {
 
-/// FUSE3 mount backend (WinFsp on Windows, libfuse3 on Linux).
+
 class FuseMountBackend final : public MountBackend {
 public:
     FuseMountBackend();
@@ -21,4 +21,4 @@ public:
     [[nodiscard]] std::vector<MountSession> list_active() const override;
 };
 
-} // namespace sv::mount
+} 

@@ -1,8 +1,4 @@
-/** @file
-  CRT shims for libsodium on UEFI (no MSVCRT).
 
-  Copyright (c) 2026 ShadowVault contributors. SPDX-License-Identifier: MIT
-**/
 
 #include <Library/BaseMemoryLib.h>
 

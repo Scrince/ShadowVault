@@ -67,4 +67,4 @@ PasswordDialogResult PasswordDialog::result() const {
     return out;
 }
 
-} // namespace sv::gui
+} 

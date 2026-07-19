@@ -70,4 +70,4 @@ void SecureBuffer::release() noexcept {
     locked_ = false;
 }
 
-} // namespace sv::crypto
+} 

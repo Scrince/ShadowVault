@@ -129,7 +129,7 @@ int restore_header(CliContext& ctx, const std::vector<std::string>& args) {
     return output.success("header restored from backup");
 }
 
-} // namespace
+} 
 
 int backup_header_command(CliContext& ctx, const std::vector<std::string>& args) {
     return backup_header(ctx, args);
@@ -139,4 +139,4 @@ int restore_header_command(CliContext& ctx, const std::vector<std::string>& args
     return restore_header(ctx, args);
 }
 
-} // namespace sv::cli
+} 

@@ -78,4 +78,4 @@ void GuiSettings::sync() {
     }
 }
 
-} // namespace sv::gui
+} 

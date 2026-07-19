@@ -48,7 +48,7 @@ VaultOpResult from_result(const sv::Result<void>& result) {
     return out;
 }
 
-} // namespace
+} 
 
 VaultService::VaultService() = default;
 
@@ -286,4 +286,4 @@ QList<VaultListEntry> VaultService::list_known_vaults() {
     return entries;
 }
 
-} // namespace sv::gui
+} 

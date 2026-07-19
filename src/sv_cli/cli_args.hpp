@@ -14,8 +14,7 @@ struct ParsedInvocation {
     std::vector<std::string> command_args;
 };
 
-/// Parses global options and subcommand name/args.
-/// Returns nullopt on usage errors (missing option values, unknown global flags).
+
 [[nodiscard]] std::optional<ParsedInvocation> parse_cli_arguments(int argc, char** argv);
 
-} // namespace sv::cli
+} 

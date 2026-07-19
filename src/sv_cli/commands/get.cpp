@@ -34,7 +34,7 @@ int get_command(CliContext& ctx, const std::vector<std::string>& args) {
         return output.error(data.error(), data.message());
     }
 
-    const auto write = platform::write_file(local_path, as_bytes(data.value()), /*create_dirs=*/true);
+    const auto write = platform::write_file(local_path, as_bytes(data.value()), true);
     if (!write.is_ok()) {
         return output.error(write.error(), write.message());
     }
@@ -42,4 +42,4 @@ int get_command(CliContext& ctx, const std::vector<std::string>& args) {
     return output.success("extracted " + vault_path.generic_string());
 }
 
-} // namespace sv::cli
+} 

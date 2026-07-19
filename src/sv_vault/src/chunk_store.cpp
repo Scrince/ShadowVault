@@ -24,7 +24,7 @@ constexpr std::size_t kChunkAadSize = 8 + 4 + 8;
     return aad;
 }
 
-} // namespace
+} 
 
 ChunkStore::ChunkStore(
     container::ContainerFileStore& container,
@@ -73,10 +73,13 @@ Result<void> ChunkStore::encrypt_chunk(
     const auto aad = build_chunk_aad(inode_id, chunk_index, manifest_generation);
 
     const auto key = crypto::hkdf_chunk_key(vmk, chunk_id);
+    if (!key.is_ok()) {
+        return Result<void>::err(key.error(), key.message());
+    }
     crypto::AeadNonce aead_nonce {};
     std::memcpy(aead_nonce.bytes.data(), nonce.value().data(), nonce.value().size());
 
-    return crypto_.aead_encrypt(plaintext, aad, key, aead_nonce, ciphertext_out, tag_out);
+    return crypto_.aead_encrypt(plaintext, aad, key.value(), aead_nonce, ciphertext_out, tag_out);
 }
 
 Result<std::vector<std::uint8_t>> ChunkStore::decrypt_chunk(
@@ -97,11 +100,14 @@ Result<std::vector<std::uint8_t>> ChunkStore::decrypt_chunk(
     const auto aad = build_chunk_aad(inode_id, chunk_index, manifest_generation);
 
     const auto key = crypto::hkdf_chunk_key(vmk, chunk_id);
+    if (!key.is_ok()) {
+        return Result<std::vector<std::uint8_t>>::err(key.error(), key.message());
+    }
     crypto::AeadNonce aead_nonce {};
     std::memcpy(aead_nonce.bytes.data(), nonce.value().data(), nonce.value().size());
 
     std::vector<std::uint8_t> plaintext(plaintext_size);
-    const auto dec = crypto_.aead_decrypt(ciphertext, aad, key, aead_nonce, tag, plaintext);
+    const auto dec = crypto_.aead_decrypt(ciphertext, aad, key.value(), aead_nonce, tag, plaintext);
     if (!dec.is_ok()) {
         return Result<std::vector<std::uint8_t>>::err(dec.error(), dec.message());
     }
@@ -216,4 +222,4 @@ Result<ChunkWriteResult> ChunkStore::write_file(
     return Result<ChunkWriteResult>::ok(result);
 }
 
-} // namespace sv::vault
+} 

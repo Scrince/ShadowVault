@@ -76,7 +76,7 @@ Result<void> validate_header_payload(const container::HeaderPayload& payload) {
     return Result<void>::ok();
 }
 
-} // namespace
+} 
 
 VaultEngine::VaultEngine()
     : crypto_(crypto::create_default_crypto_provider()), key_manager_(*crypto_) {}
@@ -919,7 +919,7 @@ void collect_descendants(const ManifestState& manifest, const std::uint64_t inod
     }
 }
 
-} // namespace
+} 
 
 Result<void> VaultEngine::remove(UnlockedVault& session, const std::filesystem::path& vault_path) {
     const auto normalized = normalize_vault_path(vault_path);
@@ -1158,4 +1158,4 @@ Result<void> VaultEngine::remove_keyfile(
     return synced;
 }
 
-} // namespace sv::vault
+} 

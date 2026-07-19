@@ -84,7 +84,7 @@ void ensure_usb_data_dirs(const std::filesystem::path& exe_dir) {
     std::filesystem::create_directories(exe_dir / ".shadowvault" / "temp", ec);
 }
 
-} // namespace
+} 
 
 void bootstrap_embedded_runtime() noexcept {
     const auto exe_dir_result = executable_directory();
@@ -116,7 +116,7 @@ void bootstrap_embedded_runtime() noexcept {
     ensure_usb_data_dirs(exe_dir);
 }
 
-} // namespace sv::platform
+} 
 
 #else
 
@@ -124,6 +124,6 @@ namespace sv::platform {
 
 void bootstrap_embedded_runtime() noexcept {}
 
-} // namespace sv::platform
+} 
 
 #endif

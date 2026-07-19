@@ -12,7 +12,7 @@
 
 namespace sv::mount {
 
-/// Process-wide mount session registry (M9 scaffold).
+
 class MountManager {
 public:
     static MountManager& instance();
@@ -40,4 +40,4 @@ private:
     MountSessionId next_id_{1};
 };
 
-} // namespace sv::mount
+} 

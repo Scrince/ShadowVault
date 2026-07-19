@@ -11,7 +11,7 @@ namespace {
 
 constexpr std::size_t kNameFieldSize = 256;
 
-} // namespace
+} 
 
 Result<void> encode_inode(const Inode& inode, Span<std::uint8_t> out) noexcept {
     if (out.size() < container::SVLT_INODE_SIZE) {
@@ -89,7 +89,7 @@ auto find_inode_in_range(
     return inodes.end();
 }
 
-} // namespace
+} 
 
 std::vector<Inode>::iterator find_inode(
     std::vector<Inode>& inodes,
@@ -105,4 +105,4 @@ std::vector<Inode>::const_iterator find_inode(
     return find_inode_in_range(inodes, parent_id, name);
 }
 
-} // namespace sv::vault
+} 

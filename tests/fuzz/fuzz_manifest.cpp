@@ -36,7 +36,7 @@ sv::vault::ManifestPage make_fuzz_page(FuzzedDataProvider& provider) {
     return page;
 }
 
-} // namespace
+} 
 
 extern "C" int LLVMFuzzerTestOneInput(const std::uint8_t* data, const std::size_t size) {
     FuzzedDataProvider provider(data, size);

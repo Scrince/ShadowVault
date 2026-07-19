@@ -6,7 +6,7 @@
 
 namespace sv {
 
-/// Byte span alias used throughout Shadow Vault APIs.
+
 template<typename T>
 using Span = std::span<T>;
 
@@ -21,4 +21,4 @@ inline ByteSpan as_writable_bytes(Span<std::uint8_t> data) noexcept {
     return ByteSpan(reinterpret_cast<std::byte*>(data.data()), data.size());
 }
 
-} // namespace sv
+} 

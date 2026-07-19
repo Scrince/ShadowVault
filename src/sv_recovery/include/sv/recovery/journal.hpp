@@ -46,8 +46,7 @@ public:
         container::Superblock* superblock) noexcept;
     [[nodiscard]] Result<void> append_abort(container::Superblock* superblock) noexcept;
 
-    /// When force_check is true, scans the journal even if superblock has no dirty flag
-    /// (required for hidden-volume journals, which do not set the outer dirty flag).
+    
     [[nodiscard]] Result<void> replay_if_dirty(
         container::Superblock* superblock,
         bool force_check = false) noexcept;
@@ -69,4 +68,4 @@ private:
     std::uint64_t open_sequence_ = 0;
 };
 
-} // namespace sv::recovery
+} 

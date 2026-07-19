@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Create a FAT ESP image with ShadowVaultBoot.efi (Linux — mtools).
+
 set -euo pipefail
 
 EFI_PATH="${1:-}"
