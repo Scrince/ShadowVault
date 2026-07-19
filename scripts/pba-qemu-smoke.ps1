@@ -1,18 +1,5 @@
-#Requires -Version 5.1
-<#
-.SYNOPSIS
-  Smoke-test ShadowVaultBoot.efi in QEMU (serial banner capture).
 
-.PARAMETER TestUnlock
-  LabUnlock only: bidirectional TCP serial, send lab passphrase, expect unlock OK.
-  Requires EFI built with SV_PBA_EFI_LAB_SERIAL (ShadowVaultBootLab.inf).
 
-.EXAMPLE
-  .\pba-qemu-smoke.ps1
-
-.EXAMPLE
-  .\pba-qemu-smoke.ps1 -TestUnlock -UnlockTimeoutSec 180
-#>
 [CmdletBinding()]
 param(
     [string] $EfiPath = 'C:\edk2\Build\ShadowVaultPkg\RELEASE_VS2022\X64\ShadowVaultBoot.efi',
@@ -47,7 +34,7 @@ param(
 $ErrorActionPreference = 'Stop'
 $ScriptDir = Split-Path -Parent $PSCommandPath
 
-# QEMU serial logs are most reliable on a local NTFS path (not %TEMP% on network profiles).
+
 $LogFile = [IO.Path]::GetFullPath($LogFile)
 $LogParent = Split-Path -Parent $LogFile
 if ($LogParent -and -not (Test-Path $LogParent)) {
@@ -98,7 +85,7 @@ if (-not (Test-Path $OvmfVars)) {
     }
 }
 
-# QEMU -drive parsing breaks on spaces — always stage firmware under C:\Temp.
+
 $OvmfCodeLocal = 'C:\Temp\shadowvault-ovmf-code.fd'
 $OvmfVarsLocal = 'C:\Temp\shadowvault-ovmf-vars.fd'
 New-Item -ItemType Directory -Force -Path 'C:\Temp' | Out-Null
