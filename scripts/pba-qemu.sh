@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Boot OVMF + ShadowVault PBA ESP in QEMU (Linux/macOS).
+
 set -euo pipefail
 
 ESP_IMAGE="${ESP_IMAGE:-/tmp/shadowvault-pba-esp.img}"
