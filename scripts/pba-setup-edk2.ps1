@@ -1,11 +1,5 @@
-#Requires -Version 5.1
-<#
-.SYNOPSIS
-  Clone EDK2 for ShadowVaultBoot.efi builds.
 
-.EXAMPLE
-  .\pba-setup-edk2.ps1 -Destination C:\edk2
-#>
+
 [CmdletBinding()]
 param(
     [string] $Destination = 'C:\edk2',
