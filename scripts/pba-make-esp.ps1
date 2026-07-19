@@ -1,11 +1,5 @@
-#Requires -Version 5.1
-<#
-.SYNOPSIS
-  Create a FAT32 ESP VHD image with full PBA lab layout for QEMU.
 
-.EXAMPLE
-  .\pba-make-esp.ps1 -EfiPath C:\edk2\Build\ShadowVaultPkg\RELEASE_VS2022\X64\ShadowVaultBoot.efi -IncludeLabVectors
-#>
+
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
