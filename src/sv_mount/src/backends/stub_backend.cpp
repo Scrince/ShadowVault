@@ -5,7 +5,10 @@ namespace sv::mount {
 namespace {
 
 constexpr const char* k_stub_message =
-    "Install WinFsp (Windows) or FUSE (Linux) for mount support";
+    "Mount backend not available: this build has no WinFsp/FUSE provider. "
+    "On Windows install WinFsp and rebuild with -DSV_BUILD_MOUNT=ON. "
+    "On Linux install libfuse and rebuild with -DSV_BUILD_MOUNT=ON. "
+    "Until then use svcli put/get/list (no drive letter).";
 
 } 
 

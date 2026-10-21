@@ -20,6 +20,8 @@ PasswordDialog::PasswordDialog(QWidget* parent)
 
     hidden_check_ = new QCheckBox(QStringLiteral("Unlock hidden volume"), this);
     protect_check_ = new QCheckBox(QStringLiteral("Protect hidden volume (outer)"), this);
+    // Default ON: refuse outer writes that could destroy a hidden volume (R-003).
+    protect_check_->setChecked(true);
     readonly_check_ = new QCheckBox(QStringLiteral("Read-only"), this);
 
     layout->addLayout(form);
@@ -36,6 +38,9 @@ PasswordDialog::PasswordDialog(QWidget* parent)
         protect_check_->setEnabled(!checked);
         if (checked) {
             protect_check_->setChecked(false);
+        } else {
+            // Re-enable hidden-volume protection when returning to outer unlock.
+            protect_check_->setChecked(true);
         }
     });
 }

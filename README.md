@@ -75,7 +75,7 @@ ctest --test-dir build --output-on-failure
 | Option | Default | Description |
 | --- | --- | --- |
 | `SV_BUILD_CLI` | `ON` | Build the `svcli` executable |
-| `SV_BUILD_GUI` | `OFF` | Build the Qt GUI, or a stub if Qt is unavailable |
+| `SV_BUILD_GUI` | `ON` | Build the Qt GUI (primary desktop experience); stub if Qt is unavailable |
 | `SV_BUILD_MOUNT` | `OFF` | Build mount backends |
 | `SV_BUILD_PBA` | `OFF` | Build Phase 1 PBA host/lab components |
 | `SV_BUILD_PBA_EFI` | `OFF` | Build `ShadowVaultBoot.efi` through EDK2 |
