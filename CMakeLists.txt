@@ -14,7 +14,7 @@ if(MSVC)
 endif()
 
 option(SV_BUILD_CLI "Build CLI executable" ON)
-option(SV_BUILD_GUI "Build Qt GUI" OFF)
+option(SV_BUILD_GUI "Build Qt GUI" ON)
 option(SV_BUILD_MOUNT "Build mount backends" OFF)
 option(SV_BUILD_PBA "Build Phase 1 PBA core (host tests)" OFF)
 option(SV_BUILD_PBA_EFI "Build ShadowVaultBoot.efi via EDK2 (requires EDK2_ROOT)" OFF)

@@ -59,3 +59,9 @@ dist/
 *.p12
 *.key
 *.pem
+
+# Windows installer release assets
+!release/windows/ShadowVault-Setup-1.2.0.exe
+!release/windows/ShadowVault-Setup-1.2.0.exe.asc
+!release/windows/SHA256SUMS
+!release/windows/SHA256SUMS.asc

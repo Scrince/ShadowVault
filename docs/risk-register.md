@@ -20,7 +20,7 @@ Tracked risks for Shadow Vault v1 with severity, likelihood, mitigation, and own
 |----|------|----------|------------|------------|-------|
 | R-001 | Weak user passwords enable offline brute force | High | High | Argon2id 256MiB default; password strength warnings; paranoid profile | Crypto Lead |
 | R-002 | Implementation flaw in custom format parser | High | Medium | Fuzz tests; spec review; triple header sectors | Core Lead |
-| R-003 | Hidden volume destroyed by outer writes | Critical | Medium | Protection mode; margin; GUI/CLI warnings | Vault Lead |
+| R-003 | Hidden volume destroyed by outer writes | Critical | Medium | Protection mode default ON in GUI unlock; margin; warnings | Vault Lead |
 | R-004 | Interrupted write corrupts manifest | High | Medium | Transaction journal; replay; JOURNAL_DIRTY flag | Recovery Lead |
 | R-005 | VMK leakage via swap/pagefile | High | Medium | mlock/VirtualLock; document OS hardening | Platform Lead |
 | R-006 | Supply-chain compromise in vendored crypto | Critical | Low | Pin versions; checksums; minimal deps | Security Lead |
