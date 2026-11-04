@@ -72,6 +72,7 @@ bool parse_global_option(
         return true;
     }
     if (arg == "--replace-session") {
+        globals.replace_session = true;
         return true;
     }
 

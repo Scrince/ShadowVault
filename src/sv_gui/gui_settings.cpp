@@ -20,7 +20,12 @@ GuiSettings::GuiSettings() {
     kdf_profile_ = settings.value(QStringLiteral("kdf_profile"), QStringLiteral("desktop")).toString();
     settings.endGroup();
 
-    recent_vaults_ = settings.value(QStringLiteral("recent_vaults")).toStringList();
+    if (no_host_traces_) {
+        settings.remove(QStringLiteral("recent_vaults"));
+        settings.sync();
+    } else {
+        recent_vaults_ = settings.value(QStringLiteral("recent_vaults")).toStringList();
+    }
 }
 
 bool GuiSettings::portable_mode() const {
@@ -36,6 +41,9 @@ bool GuiSettings::no_host_traces() const {
 }
 
 void GuiSettings::set_no_host_traces(const bool enabled) {
+    if (enabled) {
+        recent_vaults_.clear();
+    }
     no_host_traces_ = enabled;
 }
 
@@ -73,7 +81,9 @@ void GuiSettings::sync() {
     settings.setValue(QStringLiteral("kdf_profile"), kdf_profile_);
     settings.endGroup();
 
-    if (!no_host_traces_) {
+    if (no_host_traces_) {
+        settings.remove(QStringLiteral("recent_vaults"));
+    } else {
         settings.setValue(QStringLiteral("recent_vaults"), recent_vaults_);
     }
 }

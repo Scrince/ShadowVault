@@ -134,7 +134,7 @@ Result<std::vector<std::uint8_t>> ContainerFileStore::read_region(
     if (!is_open()) {
         return Result<std::vector<std::uint8_t>>::err(ErrorCode::IoError, "container not open");
     }
-    if (offset + size > file_size_) {
+    if (offset > file_size_ || size > file_size_ - offset) {
         return Result<std::vector<std::uint8_t>>::err(ErrorCode::InvalidArgument, "read beyond container size");
     }
 
@@ -194,7 +194,7 @@ Result<void> ContainerFileStore::write_region(const std::uint64_t offset, const 
     if (!is_open()) {
         return io_error("container not open");
     }
-    if (offset + data.size() > file_size_) {
+    if (offset > file_size_ || data.size() > file_size_ - offset) {
         return Result<void>::err(ErrorCode::InvalidArgument, "write beyond container size");
     }
     if (data.empty()) {

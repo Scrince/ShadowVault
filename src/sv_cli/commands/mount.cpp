@@ -12,7 +12,9 @@
 #endif
 
 #include <atomic>
+#include <charconv>
 #include <chrono>
+#include <cstdint>
 #include <filesystem>
 #include <string>
 #include <thread>
@@ -133,7 +135,14 @@ int mount_command(CliContext& ctx, const std::vector<std::string>& args) {
 
     const auto idle_seconds = parse_option(args, "--idle-timeout");
     if (!idle_seconds.empty()) {
-        opts.idle_timeout = std::chrono::seconds(std::stoll(idle_seconds));
+        std::int64_t parsed_idle_seconds = 0;
+        const auto parsed = std::from_chars(
+            idle_seconds.data(), idle_seconds.data() + idle_seconds.size(), parsed_idle_seconds);
+        if (parsed.ec != std::errc{} || parsed.ptr != idle_seconds.data() + idle_seconds.size()
+            || parsed_idle_seconds < 0) {
+            return out.error(ErrorCode::UsageError, "--idle-timeout must be a non-negative integer");
+        }
+        opts.idle_timeout = std::chrono::seconds(parsed_idle_seconds);
         opts.auto_dismount = opts.idle_timeout.count() > 0;
     }
 

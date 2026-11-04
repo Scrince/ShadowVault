@@ -247,9 +247,11 @@ VaultOpResult VaultService::dismount_vault(const QString& path) {
 
 QList<VaultListEntry> VaultService::list_known_vaults() {
     QStringList paths = known_paths_;
-    for (const auto& recent : GuiSettings::instance().recent_vaults()) {
-        if (!paths.contains(recent)) {
-            paths.append(recent);
+    if (!GuiSettings::instance().no_host_traces()) {
+        for (const auto& recent : GuiSettings::instance().recent_vaults()) {
+            if (!paths.contains(recent)) {
+                paths.append(recent);
+            }
         }
     }
 

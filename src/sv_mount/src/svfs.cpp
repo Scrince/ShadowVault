@@ -209,26 +209,41 @@ Result<std::size_t> SvFs::write(
         return Result<std::size_t>::err(ErrorCode::InvalidArgument, "invalid handle");
     }
 
+    if (buffer.size() == 0) {
+        return Result<std::size_t>::ok(0);
+    }
     if (buffer.size() > 0 && offset > std::numeric_limits<std::uint64_t>::max() - buffer.size()) {
         return Result<std::size_t>::err(ErrorCode::InvalidArgument, "write offset overflow");
     }
     const auto end = offset + buffer.size();
-    if (end > it->second.data.size()) {
-        it->second.data.resize(static_cast<std::size_t>(end));
+    if (end > std::numeric_limits<std::size_t>::max()) {
+        return Result<std::size_t>::err(ErrorCode::InvalidArgument, "write size is too large");
     }
-    std::memcpy(it->second.data.data() + offset, buffer.data(), buffer.size());
-    it->second.dirty = true;
+    auto current = engine_.get(session_, it->second.vault_path);
+    if (!current.is_ok()) {
+        return Result<std::size_t>::err(current.error(), current.message());
+    }
+    auto updated_data = std::move(current.value());
+    if (end > updated_data.size()) {
+        updated_data.resize(static_cast<std::size_t>(end));
+    }
+    std::memcpy(updated_data.data() + static_cast<std::size_t>(offset), buffer.data(), buffer.size());
 
-    
     const auto put = engine_.put(
         session_,
         it->second.vault_path,
-        Span<const std::uint8_t>(it->second.data.data(), it->second.data.size()),
+        Span<const std::uint8_t>(updated_data.data(), updated_data.size()),
         true);
     if (!put.is_ok()) {
         return Result<std::size_t>::err(put.error(), put.message());
     }
-    it->second.dirty = false;
+    for (auto& [open_handle, state] : open_handles_) {
+        (void)open_handle;
+        if (state.vault_path == it->second.vault_path) {
+            state.data = updated_data;
+            state.dirty = false;
+        }
+    }
     return Result<std::size_t>::ok(buffer.size());
 }
 
