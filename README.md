@@ -236,6 +236,8 @@ dist/           Local release outputs, when present
 
 Important design and specification documents:
 
+- [Security policy](SECURITY.md)
+- [Implementation threat model](THREAT_MODEL.md)
 - [Architecture](docs/architecture.md)
 - [CLI specification](docs/cli-spec.md)
 - [File format specification](docs/file-format-spec.md)
@@ -243,7 +245,7 @@ Important design and specification documents:
 - [Hidden volume design](docs/hidden-volume-design.md)
 - [Portable mode design](docs/portable-mode-design.md)
 - [Mount backend design](docs/mount-backend-design.md)
-- [Threat model](docs/threat-model.md)
+- [Threat model design notes](docs/threat-model.md) (draft; implementation-aligned model: [THREAT_MODEL.md](THREAT_MODEL.md))
 - [System encryption RFC](docs/rfc-system-encryption.md)
 - [PBA implementation plan](docs/phase1-pba-implementation-plan.md)
 - [Test plan](docs/test-plan.md)
