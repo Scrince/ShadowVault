@@ -56,18 +56,33 @@ int create_command(CliContext& ctx, const std::vector<std::string>& args) {
             kdf_profile = args[++i];
         } else if (arg.rfind("--kdf-profile=", 0) == 0) {
             kdf_profile = arg.substr(14);
-        } else if (arg == "--kdf-m-cost" && i + 1 < args.size()) {
-            kdf_m_cost = static_cast<std::uint32_t>(std::stoul(args[++i]));
-        } else if (arg.rfind("--kdf-m-cost=", 0) == 0) {
-            kdf_m_cost = static_cast<std::uint32_t>(std::stoul(arg.substr(13)));
-        } else if (arg == "--kdf-t-cost" && i + 1 < args.size()) {
-            kdf_t_cost = static_cast<std::uint32_t>(std::stoul(args[++i]));
-        } else if (arg.rfind("--kdf-t-cost=", 0) == 0) {
-            kdf_t_cost = static_cast<std::uint32_t>(std::stoul(arg.substr(13)));
-        } else if (arg == "--kdf-p-cost" && i + 1 < args.size()) {
-            kdf_p_cost = static_cast<std::uint32_t>(std::stoul(args[++i]));
-        } else if (arg.rfind("--kdf-p-cost=", 0) == 0) {
-            kdf_p_cost = static_cast<std::uint32_t>(std::stoul(arg.substr(13)));
+        } else if (arg == "--kdf-m-cost" || arg.rfind("--kdf-m-cost=", 0) == 0) {
+            const auto value = arg == "--kdf-m-cost"
+                ? (i + 1 < args.size() ? args[++i] : std::string {})
+                : arg.substr(13);
+            const auto parsed = parse_kdf_cost_value(value, 8192, 1048576);
+            if (!parsed.has_value()) {
+                return output.error(ErrorCode::UsageError, "--kdf-m-cost must be an integer from 8192 to 1048576");
+            }
+            kdf_m_cost = *parsed;
+        } else if (arg == "--kdf-t-cost" || arg.rfind("--kdf-t-cost=", 0) == 0) {
+            const auto value = arg == "--kdf-t-cost"
+                ? (i + 1 < args.size() ? args[++i] : std::string {})
+                : arg.substr(13);
+            const auto parsed = parse_kdf_cost_value(value, 1, 10);
+            if (!parsed.has_value()) {
+                return output.error(ErrorCode::UsageError, "--kdf-t-cost must be an integer from 1 to 10");
+            }
+            kdf_t_cost = *parsed;
+        } else if (arg == "--kdf-p-cost" || arg.rfind("--kdf-p-cost=", 0) == 0) {
+            const auto value = arg == "--kdf-p-cost"
+                ? (i + 1 < args.size() ? args[++i] : std::string {})
+                : arg.substr(13);
+            const auto parsed = parse_kdf_cost_value(value, 1, 4);
+            if (!parsed.has_value()) {
+                return output.error(ErrorCode::UsageError, "--kdf-p-cost must be an integer from 1 to 4");
+            }
+            kdf_p_cost = *parsed;
         } else if (arg == "--keyfile" && i + 1 < args.size()) {
             keyfiles.emplace_back(args[++i]);
         } else if (arg == "--quick") {

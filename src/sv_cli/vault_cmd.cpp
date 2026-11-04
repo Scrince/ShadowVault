@@ -6,9 +6,12 @@
 #include <sv/vault/vault_engine.hpp>
 
 #include <cctype>
+#include <charconv>
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
+#include <limits>
+#include <system_error>
 
 namespace sv::cli {
 
@@ -29,7 +32,7 @@ std::optional<std::uint64_t> parse_size_string(const std::string& text) {
 
     std::uint64_t multiplier = 1;
     std::string number = text;
-    const char suffix = static_cast<char>(std::tolower(text.back()));
+    const char suffix = static_cast<char>(std::tolower(static_cast<unsigned char>(text.back())));
     if (suffix == 'k' || suffix == 'm' || suffix == 'g' || suffix == 't') {
         number = text.substr(0, text.size() - 1);
         switch (suffix) {
@@ -50,12 +53,34 @@ std::optional<std::uint64_t> parse_size_string(const std::string& text) {
         }
     }
 
-    try {
-        const auto value = std::stoull(number);
-        return value * multiplier;
-    } catch (...) {
+    if (number.empty()) {
         return std::nullopt;
     }
+
+    std::uint64_t value = 0;
+    const auto parsed = std::from_chars(number.data(), number.data() + number.size(), value);
+    if (parsed.ec != std::errc{} || parsed.ptr != number.data() + number.size()
+        || value > std::numeric_limits<std::uint64_t>::max() / multiplier) {
+        return std::nullopt;
+    }
+    return value * multiplier;
+}
+
+std::optional<std::uint32_t> parse_kdf_cost_value(
+    const std::string& text,
+    const std::uint32_t minimum,
+    const std::uint32_t maximum) {
+    if (text.empty()) {
+        return std::nullopt;
+    }
+
+    std::uint32_t value = 0;
+    const auto result = std::from_chars(text.data(), text.data() + text.size(), value);
+    if (result.ec != std::errc{} || result.ptr != text.data() + text.size()
+        || value < minimum || value > maximum) {
+        return std::nullopt;
+    }
+    return value;
 }
 
 namespace {
