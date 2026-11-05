@@ -1,0 +1,79 @@
+ShadowVault production repository map
+
+.
+├── CMakeLists.txt                         # Production build targets and install/package entry point
+├── LICENSE                                # GPLv3 license shipped with the application
+├── README.md                              # User-facing project and CLI overview
+├── SECURITY.md                            # Security policy
+├── THREAT_MODEL.md                        # Implementation threat model
+├── cmake/
+│   ├── FindWinFsp.cmake                   # Optional Windows mount dependency discovery
+│   ├── InstallRules.cmake                 # Installed files and CPack package metadata
+│   ├── Packaging.cmake                    # Platform and architecture package naming
+│   ├── ShadowVaultVersion.cmake            # Version/header generation
+│   └── version.hpp.in                     # Generated version header template
+├── docs/
+│   ├── architecture.md                    # Architecture reference
+│   ├── cli-spec.md                        # CLI reference (installed with packages)
+│   ├── dependency-policy.md               # Runtime dependency and licensing policy
+│   ├── file-format-spec.md                # .svlt format specification
+│   ├── hidden-volume-design.md            # Hidden-volume behavior
+│   ├── key-hierarchy.md                   # Key hierarchy reference
+│   ├── mount-backend-design.md             # Optional mount backend
+│   ├── portable-mode-design.md             # USB/traveler behavior
+│   └── WINDOWS_INSTALLER.md               # Windows installation guidance
+├── external/
+│   ├── CMakeLists.txt                     # Vendored dependency integration
+│   ├── checksums.txt                      # Dependency source integrity metadata
+│   ├── libsodium_cmake/                   # CMake wrapper for the vendored crypto library
+│   └── libsodium-src/                     # Vendored libsodium source/license
+├── packaging/
+│   ├── THIRD_PARTY_NOTICES.txt            # Third-party notices shipped with packages
+│   ├── completion/sv.bash                 # Bash completion installed as svcli
+│   ├── portable/
+│   │   ├── README-USB.txt                 # Portable installation/use instructions
+│   │   ├── Start-ShadowVault.cmd          # Portable launcher
+│   │   ├── shadowvault.ini                # Portable runtime defaults
+│   │   └── sv.cmd                         # Portable CLI launcher
+│   ├── single-exe/sv_embedded.rc.in        # Windows single-file resource template
+│   └── windows/
+│       ├── ShadowVault-core.wxs           # Windows installer core component definitions
+│       ├── ShadowVault.wxs                # Windows installer package definition
+│       ├── license.rtf                    # Installer license display
+│       └── shadowvault.ini.example        # Installed example configuration
+├── installer/ShadowVault.iss               # Inno Setup installer definition
+├── scripts/
+│   ├── build-installer.ps1                # Windows installer/portable package production
+│   ├── build-portable.ps1                 # Portable folder and ZIP production
+│   ├── build-single-exe.ps1               # Single-file portable executable production
+│   └── sign-release.ps1                   # Release artifact signing workflow
+├── src/
+│   ├── sv_cli/                            # CLI entry point, commands, and public CLI headers
+│   ├── sv_common/                         # Shared utilities and result/logging support
+│   ├── sv_container/                      # Container layout, headers, and file access
+│   ├── sv_crypto/                         # Crypto provider, KDF, secure memory, randomness
+│   ├── sv_gui/                            # Optional Qt desktop application and dialogs
+│   ├── sv_keyfile/                        # Keyfile format and credential combination
+│   ├── sv_mount/                           # Optional virtual filesystem and mount backends
+│   ├── sv_platform/                       # OS-specific file, memory, path, and terminal support
+│   ├── sv_portable/                       # Portable configuration and traveler paths
+│   ├── sv_recovery/                       # Journal replay and repair
+│   └── sv_vault/                          # Vault engine, files, manifest, and hidden volumes
+├── release/windows/
+│   ├── ShadowVault-Setup-1.2.0.exe         # Published Windows installer artifact
+│   ├── SHA256SUMS                         # Published artifact checksums
+│   └── SHA256SUMS.asc                     # Detached checksum signature
+└── dist/                                  # Local release packages and detached signatures
+    ├── ShadowVault-1.2.0-linux-{arm64,x64}.zip
+    ├── ShadowVault-1.2.0-macos-arm64.zip
+    ├── ShadowVault-1.2.0-portable.exe
+    ├── ShadowVault.exe                    # Windows single-file portable executable
+    ├── SHA256SUMS                         # Package checksums
+    └── *.asc                              # Detached package/checksum signatures
+
+Production notes
+
+- Production source of truth is the root CMake project and `src/`; `external/` supplies the configured vendored libsodium source. `packaging/` and `cmake/` define installation contents and package layouts.
+- Packaged binaries under `dist/` and `release/windows/` are generated copies. CMake install/CPack produces platform ZIPs; the PowerShell scripts assemble Windows portable and single-file packages, and the installer definitions produce Windows installers. Release signing is a separate packaging step.
+- The CLI is the base application. Qt GUI and WinFsp mount support are optional; WinFsp is Windows-only. The single-file portable executable is Windows-only. Linux/macOS and Windows release archives are separate platform/architecture builds. The PBA code is a lab prototype and is not included in this production map.
+- Build directories, tests, local caches, and mutable per-user/runtime configuration are intentionally omitted. The local `dist/` directory contains release outputs; its runtime configuration file is omitted from this inventory.
